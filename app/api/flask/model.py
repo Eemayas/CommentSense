@@ -8,7 +8,8 @@ import pickle
 # Load Keras model
 lstm = load_model('app/api/flask/sentimentmodel.h5')
 rnn = load_model('app/api/flask/85.59%RNN_Model.h5')
-gru = load_model('app/api/flask/GRU_sentimentmodel.h5')
+#gru = load_model('app/api/flask/GRU_sentimentmodel.h5')
+gru = load_model('app/api/flask/GRU_sentimentmodel.12.7.023.h5')
 # rnn = load_model('app/api/flask/rnnmodel.h5')
 
 

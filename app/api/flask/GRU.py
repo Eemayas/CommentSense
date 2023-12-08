@@ -41,9 +41,9 @@ def get_Comment_Analysis_GRU():
             return jsonify({"error": "Failed to retrieve comments"}), 500       
         comments = comments[:10]
         for comment in comments:
-            text=clean_LSTM(comment)
+            comment=clean_LSTM(comment)
             if comment!="":
-                sequence=tokenizer.texts_to_sequences([text])
+                sequence=tokenizer.texts_to_sequences([comment])
                 padded_sequences = pad_sequences(sequence,padding='post',maxlen=50)
                 prediction=gru.predict(padded_sequences)
                 result1=prediction.tolist()
@@ -85,9 +85,9 @@ def get_Comment_Analysis_pagination_GRU(page_number):
         comments=getCertainComments(page_number) 
         print("get_Comment_Analysis_pagination_GRU \t"+str(len(comments)))        
         for comment in comments:
-            text=clean_LSTM(comment)
+            comment=clean_LSTM(comment)
             if comment!="":
-                sequence=tokenizer.texts_to_sequences([text])
+                sequence=tokenizer.texts_to_sequences([comment])
                 padded_sequences = pad_sequences(sequence,padding='post',maxlen=50)
                 prediction=gru.predict(padded_sequences)
                 result1=prediction.tolist()
@@ -115,9 +115,9 @@ def get_Comment_Analysis_pagination_part_2_GRU(page_number):
             return jsonify({"error": "Failed to retrieve comments"}), 500
         print("get_Comment_Analysis_pagination_GRU \t"+str(len(comments)))        
         for comment in comments:
-            text=clean_LSTM(comment)
+            comment=clean_LSTM(comment)
             if comment!="":
-                sequence=tokenizer.texts_to_sequences([text])
+                sequence=tokenizer.texts_to_sequences([comment])
                 padded_sequences = pad_sequences(sequence,padding='post',maxlen=50)
                 prediction=gru.predict(padded_sequences)
                 result1=prediction.tolist()

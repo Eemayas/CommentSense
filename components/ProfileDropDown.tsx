@@ -31,7 +31,7 @@ export default function ProfileDropDown() {
             My Profile
           </DropdownItem>
 
-          <DropdownItem key="logout" color="danger" href="./signout">
+          <DropdownItem key="logout" color="danger" href="/api/auth/signout">
             Log Out
           </DropdownItem>
         </DropdownMenu>
