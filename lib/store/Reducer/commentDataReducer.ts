@@ -5,7 +5,7 @@ import {
 } from "./constant";
 import { datassss } from "../../CommentsData";
 
-const intialState = datassss.slice(0, 10);
+const intialState = datassss.slice(0, 12);
 // const intialState: never[] = [];
 const CommentDataReducer = (
   //intialState,

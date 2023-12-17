@@ -25,7 +25,7 @@ const heroImages = [
 
 const HeroCarousel = () => {
   return (
-    <div className="hero-carousel">
+    <div className="hero-carousel my-auto">
       <Image
         className="max-xl:hidden absolute -left-[15%] z-10  bottom-0"
         src={"assets/icons/hand-drawn-arrow.svg"}

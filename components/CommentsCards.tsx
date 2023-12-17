@@ -30,35 +30,30 @@ const CommentCards = ({
   const ChipClassNames =
     type == 0
       ? {
-          base: "border-1 border-white/6=80",
+          base: "border-1 border-white/6=80 bg-white",
           content: "text-red-400 text-small font-semibold",
         }
       : type === 4
       ? {
-          base: "border-1 border-white/6=80",
+          base: "border-1 border-white/6=80 bg-white",
           content: "text-green-400 text-small font-semibold",
         }
       : {
-          base: "border-1 border-white/6=80",
+          base: "border-1 border-white/6=80 bg-white",
           content: "text-yellow-400 text-small font-semibold",
         };
-
+  const CardColor =
+    type == 0 ? "to-red-400" : type === 4 ? "to-green-400" : "to-yellow-400";
   return (
-    // <motion.div
-    //   initial="hidden"
-    //   whileInView={"show"}
-    //   variants={fadeIn("right", "spring", 0.5, 0.75)}
-    // >
-    <motion.div
-      // className="w-full green-pink-gradient p-[1px] rounded-[30px] shadow-card "
-      variants={fadeIn("right", "spring", 0.25 * index, 0.55)}
-    >
+    <motion.div variants={fadeIn("right", "spring", 0.25 * index, 0.55)}>
       <Card
         className={`
-      w-[300px] h-[400px] border-none bg-gradient-to-br from-violet-500 to-fuchsia-500 gap-2`}
+      w-[300px] h-[450px] border-none bg-gradient-to-br from-violet-500
+      ${CardColor}
+         gap-2`}
         style={{ transition: "opacity 0.05s, transform 0.5s" }}
       >
-        <CardBody className="justify-center items-center pb-0">
+        <CardBody className="justify-center items-center h-[410px]">
           <div className="flex flex-row gap-3">
             <div className="justify-center items-center flex flex-col gap-2">
               <CircularProgress
@@ -107,15 +102,16 @@ const CommentCards = ({
             </div>
           </div>
 
-          <Divider orientation="horizontal" className="my-2" />
-          <ScrollShadow className="w-full h-full">
-            <p className="ml-10 w-[60%] font-medium text-white sm:text-xl">
+          <Divider orientation="horizontal" />
+          <ScrollShadow className="w-full h-[90%]">
+            <p className="ml-2 w-[90%] text-center font-medium text-white sm:text-xl">
               {comment}
             </p>
           </ScrollShadow>
         </CardBody>
+        <Divider orientation="horizontal" className="my-1" />
         <CardFooter className=" justify-center items-center pt-0">
-          <Chip classNames={ChipClassNames} variant="bordered">
+          <Chip size="lg" classNames={ChipClassNames} variant="shadow">
             {type == 0 ? "Negative" : type == 2 ? "Neutral" : "Postive"}
           </Chip>
         </CardFooter>

@@ -1,18 +1,13 @@
-from flask import jsonify, request
+from flask import jsonify
 from pytube import YouTube
 from flask import jsonify
 from googleapiclient.discovery import build
-from predict import predict_text_RNN,predict_text_LSTM
-from test import data
-from keras.models import Model
-from keras.preprocessing.text import Tokenizer
-from model import lstm,tokenizer,tokenizer_RNN,rnn
-from keras.preprocessing.sequence import pad_sequences
-from preprocessing import clean_LSTM,clean_RNN
-from flask import request,jsonify,Response
+from flask import jsonify
 from preprocessing import filter_english_comments
 from apis import YOUTUBEAPI
-import re
+from constants import commentCountPerPage
+
+
 def get_videoid(url):
     try:
         ytobject = YouTube(url)
@@ -21,56 +16,64 @@ def get_videoid(url):
     except Exception as e:
         print(f"Error: {str(e)}")
 
-              
-youtube=build("youtube","v3",developerKey=YOUTUBEAPI)
-commentlist=[]
-def getComments(videoid,pagecountStart,pagecountRange,commentsCount=100):
-    global commentlist
-    commentlist=[]
-    pagetoken=None
-    pagecount=pagecountStart
-    while True:
-        comment_request = youtube.commentThreads().list(
-            part='snippet' ,          
-            videoId=videoid,           
-            textFormat='plainText',
-            maxResults=10000,           
-            pageToken=pagetoken
-        )
-        result=comment_request.execute()
-        for item in result['items']:
-            newComment=item['snippet']['topLevelComment']['snippet']['textDisplay'];
-            newComment=filter_english_comments(newComment)
-            if(newComment!="" and newComment!="."):
-                commentlist.append(item['snippet']['topLevelComment']['snippet']['textDisplay'])
-        # if 'nextPageToken' in result and pagecount<(pagecountStart+pagecountRange):
-        if 'nextPageToken' in result and len(commentlist)<commentsCount:
-            pagetoken=result['nextPageToken']
-            pagecount+=1
-            print(pagecount)
-        else :
-            break
-    print("getComments \t "+str(len(commentlist)))
-    return commentlist
+
+youtube = build("youtube", "v3", developerKey=YOUTUBEAPI)
+commentlist = []
+
+
+def getComments(videoid, pagecountStart, pagecountRange, commentsCount=100):
+    try:
+        global commentlist
+        commentlist = []
+        pagetoken = None
+        pagecount = pagecountStart
+        while True:
+            comment_request = youtube.commentThreads().list(
+                part='snippet',
+                videoId=videoid,
+                textFormat='plainText',
+                maxResults=10000,
+                pageToken=pagetoken
+            )
+            result = comment_request.execute()
+            for item in result['items']:
+                newComment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+                newComment = filter_english_comments(newComment)
+                if (newComment != "" and newComment != "."):
+                    commentlist.append(
+                        item['snippet']['topLevelComment']['snippet']['textDisplay'])
+            # if 'nextPageToken' in result and pagecount<(pagecountStart+pagecountRange):
+            if 'nextPageToken' in result and len(commentlist) < commentsCount:
+                pagetoken = result['nextPageToken']
+                pagecount += 1
+                print(pagecount)
+            else:
+                break
+        print("getComments \t "+str(len(commentlist)))
+        return commentlist
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 def getCertainComments(page_number):
-    global commentlist
-    print("getCertainComments LSTM"+str(len(commentlist)))
-    return commentlist[(page_number-1)*10:page_number*10]  
-    
-
-def get_Comment_try ():
     try:
-        
+        global commentlist
+        print("getCertainComments LSTM"+str(len(commentlist)))
+        return commentlist[(page_number-1)*commentCountPerPage:page_number*commentCountPerPage]
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+def get_Comment_try():
+    try:
         # video_url = request.args.get('url')
         video_url = "https://www.youtube.com/watch?v=HhjHYkPQ8F0"
-        
+
         if not video_url:
             return jsonify({"error": "Video URL is required"}), 400
-        
-        video_id =YouTube(video_url).video_id
-        comments = getComments(video_id, 0, 1)  
+
+        video_id = YouTube(video_url).video_id
+        comments = getComments(video_id, 0, 1)
         return jsonify({"comments": comments})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -89,7 +92,7 @@ def get_Comment_try ():
 #         comments=comments[:100]
 #         # Check if comments is None
 #         if comments is None:
-#             return jsonify({"error": "Failed to retrieve comments"}), 500       
+#             return jsonify({"error": "Failed to retrieve comments"}), 500
 #         for comment in comments:
 #             text=clean_RNN(comment)
 #             sequence=tokenizer_RNN.texts_to_sequences([text])
@@ -100,7 +103,7 @@ def get_Comment_try ():
 #             type=np.argmax(np.array(result))
 #             type=0 if type==0 else 4 if type==2 else 2
 #             new_row = {'comment': comment, "type":type,'negative_score': round(result[0]*100, 2), 'neutral_score': round(result[1]*100, 2), 'positive_score': round(result[2]*100, 2)}
-            
+
 #             df_predict.loc[len(df_predict)] = new_row
 
 #         # Convert DataFrame to JSON
@@ -110,7 +113,7 @@ def get_Comment_try ():
 #         return jsonify({"comments": json.loads(json_result)})
 #     except Exception as e:
 #         return jsonify({"error": str(e)}), 500
-    
+
 # def get_Comment_Analysissss():
 #     # df_predict = pd.DataFrame(columns=['comment',"clean","prediction","padd",])
 #     df_predict = pd.DataFrame(columns=['comment',"type" ,'negative_score', 'neutral_score', 'positive_score'])
@@ -139,7 +142,7 @@ def get_Comment_try ():
 #             type=np.argmax(np.array(result))
 #             type=0 if type==0 else 4 if type==2 else 2
 #             new_row = {'comment': comment, "type":type,'negative_score': round(result[0]*100, 2), 'neutral_score': round(result[1]*100, 2), 'positive_score': round(result[2]*100, 2)}
-            
+
 #             df_predict.loc[len(df_predict)] = new_row
 #             new_row={'comment': comment,"clean":comment,"prediction":prediction,"padd":padded_sequences}
 
@@ -153,4 +156,3 @@ def get_Comment_try ():
 #         # return jsonify({"comments": comments,"comments1": comments1,})
 #     except Exception as e:
 #         return jsonify({"error": str(e)}), 500
-    

@@ -1,17 +1,16 @@
-from flask import Flask, request, jsonify, Response
-from getComments import get_Comment_try
-from LSTM import get_Comment_Analysis_LSTM, get_Comment_Analysis_pagination_LSTM, get_Comment_Analysis_pagination_part_2_LSTM
-from GRU import get_Comment_Analysis_GRU, get_Comment_Analysis_pagination_GRU, get_Comment_Analysis_pagination_part_2_GRU
-import numpy as np
-from predict import predict_text_LSTM, predict_text_endpoint
+from flask import Flask, request, jsonify
 from test import data
-from roberta import get_Comment_Analysis_Rob, get_Comment_Analysis_pagination_Rob
-from RNN import get_Comment_Analysis_RNN, get_Comment_Analysis_pagination_RNN
 from flask_cors import CORS
+from getComments import get_Comment_try
+from Analysis.LSTM import get_Comment_Analysis_LSTM, get_Comment_Analysis_pagination_part_2_LSTM
+from Analysis.GRU import get_Comment_Analysis_GRU,  get_Comment_Analysis_pagination_part_2_GRU
+from Analysis.roberta import get_Comment_Analysis_Rob, get_Comment_Analysis_pagination_Rob
+from Analysis.RNN import get_Comment_Analysis_RNN, get_Comment_Analysis_pagination_RNN
+from Analysis.singleComment import single_comment_analysis
+
 
 app = Flask(__name__)
 CORS(app)
-# Global variable to store data
 
 model = "LSTM"
 
@@ -27,7 +26,6 @@ def test_endpoint():
                     "model": model,
                     "pageNumber": pageNumber,
                     "data": data})
-    # return data
 
 
 @app.route('/get_comments', methods=['GET'])
@@ -64,17 +62,10 @@ def get_comments_Analysis_pagination():
     else:
         return get_Comment_Analysis_pagination_part_2_GRU(pageNumber)
 
-    # return get_Comment_Analysis()
-# @app.route('/get_comments_analysisss', methods=['GET'])
-# def get_comments_Analysissss():
-
-    # return get_Comment_Analysissss()
-    # return get_Comment_Analysis()
-
 
 @app.route('/predict/text', methods=['GET'])
 def predict_endpoint():
-    return predict_text_endpoint()
+    return single_comment_analysis()
 
 
 @app.route('/')
@@ -87,6 +78,5 @@ def homes_endpoint():
     return "Welcome"
 
 
-# To run a development server not production server
 if __name__ == '_main_':
     app.run(debug=True)

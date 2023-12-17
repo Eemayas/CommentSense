@@ -13,7 +13,7 @@
 /app/api/flask/sentimentmodel.h5
 /app/api/flask/apis.py
 /app/api/flask/rnnmodel.h5
-/app/api/flask/Model/
+/app/api/flask/Model/LSTM_sentimentmodel.h5
 app/api/flask/Copy of sentimentmodel.h5
 app/api/flask/GRU_sentimentmodel.h5
 

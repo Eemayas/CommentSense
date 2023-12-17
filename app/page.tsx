@@ -1,21 +1,18 @@
 // "use client";
-import { getServerSession } from "next-auth";
-import { options } from "./api/auth/[...nextauth]/options";
 import { Divider } from "@nextui-org/react";
 
 import HeroCarousel from "@/components/HeroCarousel";
 import Searchbar from "@/components/Searchbar";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "@/components/Navbar";
 import { datassss } from "@/lib/CommentsData";
-import Sidebar from "@/components/Sidebar";
 import CommentSection from "@/components/CommentSection";
-import { exec } from "child_process";
+
+import ModelDetailSection from "@/components/ModelDetailSection";
+import Link from "next/link";
 // import Sidebar from "@/components/Sidebar";
 export default async function Home() {
-  const value = 0.66;
-  const session = await getServerSession(options);
   return (
     <>
       <Navbar />
@@ -38,7 +35,29 @@ export default async function Home() {
             Powerful, self-serve product and growth analytics to help you
             convert, engage, and retain more.
           </p>
+          <p>
+            Try it out with
+            <Link
+              className="text-blue-500 font-bold underline"
+              href={"https://www.youtube.com/"}
+              target="_"
+            >
+              {" "}
+              Youtube{" "}
+            </Link>
+            Link or instead try for{" "}
+            <Link
+              className="text-blue-500 font-bold underline"
+              href={"./predict"}
+            >
+              {" "}
+              Single Text{" "}
+            </Link>
+          </p>
+
           <Searchbar />
+          <Divider className="my-1 mt-6" />
+          <ModelDetailSection />
         </div>
         <HeroCarousel />
       </section>

@@ -79,7 +79,8 @@ const Searchbar = () => {
       if (
         hostName.includes("youtube.com") ||
         hostName.includes("youtube.") ||
-        hostName.endsWith("youtube")
+        hostName.endsWith("youtube") ||
+        hostName.includes("youtu.be")
       ) {
         return true;
       }
@@ -193,7 +194,7 @@ const Searchbar = () => {
             type="text"
             value={youtubeLink}
             onChange={(e) => setYoutubeLink(e.target.value)}
-            placeholder="Enter product Link"
+            placeholder="Enter YouTube Link"
             className="searchbar-input"
           ></input>
           <button

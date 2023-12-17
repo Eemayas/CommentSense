@@ -51,3 +51,14 @@ export type User =
       image?: string | null | undefined;
     }
   | undefined;
+
+export type TextDataEntry = {
+  negative_score: number;
+  neutral_score: number;
+  positive_score: number;
+  type: number;
+};
+
+export type TextDataMap = {
+  [key: string]: TextDataEntry | string;
+};

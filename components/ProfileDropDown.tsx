@@ -5,6 +5,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
+  DropdownSection,
   Avatar,
 } from "@nextui-org/react";
 
@@ -23,12 +24,21 @@ export default function ProfileDropDown() {
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
-          <DropdownItem key="profile" className="h-14 gap-2">
-            <p className="font-semibold">Signed in as</p>
-            <p className="font-semibold">zoey@example.com</p>
-          </DropdownItem>
-          <DropdownItem key="settings" href="./personaldetail">
-            My Profile
+          <DropdownSection aria-label="Preferences" showDivider>
+            <DropdownItem key="profile" className="h-14 gap-2">
+              <p className="font-semibold">Signed in as</p>
+              <p className="font-semibold">zoey@example.com</p>
+            </DropdownItem>
+            <DropdownItem key="settings" href="./personaldetail">
+              My Profile
+            </DropdownItem>
+            <DropdownItem key="settings" href="./personaldetail">
+              Search History
+            </DropdownItem>
+          </DropdownSection>
+
+          <DropdownItem key="settings" href="./resetpassword">
+            Reset Password
           </DropdownItem>
 
           <DropdownItem key="logout" color="danger" href="/api/auth/signout">

@@ -7,7 +7,7 @@ import ProfileDropDown from "@/components/ProfileDropDown";
 const navIcons = [
   { src: "/assets/icons/search.svg", alt: "Search" },
   { src: "/assets/icons/black-heart.svg", alt: "Heart" },
-  { src: "/assets/icons/user.svg", alt: "User" },
+  // { src: "/assets/icons/user.svg", alt: "User" },
 ];
 
 const Navbar = () => {
@@ -37,7 +37,7 @@ const Navbar = () => {
               className="object-contain"
             />
           ))}
-          <Image
+          {/* <Image
             onClick={() => router.push("./personaldetail")}
             key={navIcons[2].alt}
             src={navIcons[2].src}
@@ -45,7 +45,7 @@ const Navbar = () => {
             width={28}
             height={27}
             className="object-contain"
-          />
+          /> */}
           <ProfileDropDown />
         </div>
       </nav>

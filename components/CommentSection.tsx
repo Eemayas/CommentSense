@@ -9,7 +9,7 @@ import { scrollToSection } from "@/lib/action/ScrollFunctionalities";
 import { useDispatch, useSelector } from "react-redux";
 // import { ADD_COMMENT_DATA_SUCCESS } from "@/lib/store/Reducer/constant";
 
-const pageSize = 10; // Number of comments to display per page
+const pageSize = 12; // Number of comments to display per page
 type Props = {
   datassss: CommentData[];
 };

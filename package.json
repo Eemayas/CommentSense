@@ -5,7 +5,7 @@
   "scripts": {
     "next-dev": "next dev",
     "dev": "concurrently \"pnpm run next-dev\" \"pnpm run flask-dev\"",
-    "flask-dev": "set FLASK_DEBUG=1 && pip install -r requirements.txt && python -m flask --app app/api/flask/app run -p 5328",
+    "flask-dev": "node check-env.js && set FLASK_DEBUG=1 && pip install -r requirements.txt && python -m flask --app app/api/flask/app run -p 5328",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -42,6 +42,7 @@
     "concurrently": "^8.2.2",
     "mongoose": "^8.0.0",
     "postcss": "^8",
+    "shelljs": "^0.8.5",
     "tailwindcss": "^3",
     "typescript": "^5"
   }

@@ -1,4 +1,3 @@
-import { LOGIN_ERROR } from "@/app/constant";
 import UserLogin from "@/lib/model/userLogin.model";
 import { connectToDB } from "@/lib/mongoose";
 import credentials from "next-auth/providers/credentials";

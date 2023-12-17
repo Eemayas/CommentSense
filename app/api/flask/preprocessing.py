@@ -1,5 +1,5 @@
 import re
-from langdetect import detect,detect_langs
+from langdetect import detect, detect_langs
 from nltk.corpus import stopwords
 import nltk
 from nltk.stem import WordNetLemmatizer
@@ -7,6 +7,8 @@ from nltk.stem import PorterStemmer
 nltk.download('stopwords')
 
 # function to completely remove the emojis from the comments using re
+
+
 def removeemoji(text):
     # Define a regular expression pattern to match emojis
     emoji_pattern = re.compile("["
@@ -37,54 +39,60 @@ def removeemoji(text):
 
 def filter_english_comments(text):
   # we ue re module for multi seperator split
-    sentences=re.split(r'[.:]',text)
-    englishcomments=[]
+    sentences = re.split(r'[.:]', text)
+    englishcomments = []
     for sentence in sentences:
         try:
             # print(sentence)
             # print(detect(sentence))
-            if detect(sentence)=="en" and detect_langs(text)[0].prob>=0.7:
+            if detect(sentence) == "en" and detect_langs(sentence)[0].prob >= 0.7:
                 englishcomments.append(sentence)
             else:
                 englishcomments.append("")
         except:
             pass
-    filteredcomment='.'.join(englishcomments)
+    filteredcomment = '.'.join(englishcomments)
     return filteredcomment
+
 
 def remove_tags(text):
     TAG_RE = re.compile(r'<[^>]+>')
     '''Removes HTML tags: replaces anything between opening and closing <> with empty space'''
     return TAG_RE.sub('', text)
 
+
 def preprocessing(text):
-    text=str(text)
+    text = str(text)
     # Convert to lowercase
-    text=text.lower()
+    text = text.lower()
 
     # Remove html tags
-    text= remove_tags(text)
+    text = remove_tags(text)
 
     # Substitute 'n't' with 'not'
-    text = re.sub(r"n't", "not",text)
-    
+    text = re.sub(r"n't", "not", text)
+
     # Remove punctuations and numbers
-    text = re.sub('[^a-zA-Z]', ' ',text)
+    text = re.sub('[^a-zA-Z]', ' ', text)
 
     # Single character removal
-    text = re.sub(r"\s+[a-zA-Z]\s+", ' ', text)  # When we remove apostrophe from the word "Mark's", the apostrophe is replaced by an empty space. Hence, we are left with single character "s" that we are removing here.
+    # When we remove apostrophe from the word "Mark's", the apostrophe is replaced by an empty space. Hence, we are left with single character "s" that we are removing here.
+    text = re.sub(r"\s+[a-zA-Z]\s+", ' ', text)
 
     # Remove multiple spaces
-    text = re.sub(r'\s+', ' ', text)  # Next, we remove all the single characters and replace it by a space which creates multiple spaces in our text. Finally, we remove the multiple spaces from our text as well.
+    # Next, we remove all the single characters and replace it by a space which creates multiple spaces in our text. Finally, we remove the multiple spaces from our text as well.
+    text = re.sub(r'\s+', ' ', text)
 
     # Remove Stopwords
-    pattern = re.compile(r'\b(' + r'|'.join(stopwords.words('english')) + r')\b\s*')
+    pattern = re.compile(
+        r'\b(' + r'|'.join(stopwords.words('english')) + r')\b\s*')
     text = pattern.sub('', text)
 
     return text
 
+
 contractions = {
-    "ilove":"i love",
+    "ilove": "i love",
     "ain't": "am not",
     "aren't": "are not",
     "can't": "cannot",
@@ -243,7 +251,7 @@ contractions = {
     "you'll've": "you will have",
     "you're": "you are",
     "you've": "you have",
-      "aint": "am not",
+    "aint": "am not",
     "arent": "are not",
     "cant": "cannot",
     "couldve": "could have",
@@ -403,37 +411,40 @@ contractions = {
     "youve": "you have"
 }
 
+
 def preprocessing_RNN(text):
-    text=str(text)
+    text = str(text)
     # Convert to lowercase
-    text=text.lower()
+    text = text.lower()
 
     # Remove html tags
-    text= remove_tags(text)
+    text = remove_tags(text)
 
     # Substitute 'n't' with 'not'
-    text = re.sub(r"n't", "not",text)
-    
+    text = re.sub(r"n't", "not", text)
+
     # Remove punctuations and numbers
-    text = re.sub('[^a-zA-Z]', ' ',text)
+    text = re.sub('[^a-zA-Z]', ' ', text)
 
     # Single character removal
-    text = re.sub(r"\s+[a-zA-Z]\s+", ' ', text)  # When we remove apostrophe from the word "Mark's", the apostrophe is replaced by an empty space. Hence, we are left with single character "s" that we are removing here.
+    # When we remove apostrophe from the word "Mark's", the apostrophe is replaced by an empty space. Hence, we are left with single character "s" that we are removing here.
+    text = re.sub(r"\s+[a-zA-Z]\s+", ' ', text)
 
     # Remove multiple spaces
-    text = re.sub(r'\s+', ' ', text)  # Next, we remove all the single characters and replace it by a space which creates multiple spaces in our text. Finally, we remove the multiple spaces from our text as well.
+    # Next, we remove all the single characters and replace it by a space which creates multiple spaces in our text. Finally, we remove the multiple spaces from our text as well.
+    text = re.sub(r'\s+', ' ', text)
 
     # Remove Stopwords
     words_to_remove = ['y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't",
-                    'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't",
-                    'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't",
-                    'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't",
-                    'won', "won't", 'wouldn', "wouldn't","not"]
+                       'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't",
+                       'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't",
+                       'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't",
+                       'won', "won't", 'wouldn', "wouldn't", "not"]
     # Get the default English stopwords from NLTK
     stop_words = set(stopwords.words('english'))
     # Remove the specified words from the default stopwords
     stop_words = [word for word in stop_words if word not in words_to_remove]
-   
+
     pattern = re.compile(r'\b(' + r'|'.join(stop_words) + r')\b\s*')
     text = pattern.sub('', text)
     # Tokenization
@@ -443,7 +454,8 @@ def preprocessing_RNN(text):
     stemmer = PorterStemmer()
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
     tokens = [stemmer.stem(word) for word in tokens]
-    tokens = [contractions[word] if word in contractions else word for word in tokens]
+    tokens = [contractions[word]
+              if word in contractions else word for word in tokens]
     for i in range(len(tokens)):
         if tokens[i] == 'not' and i < len(tokens) - 1:
             tokens[i + 1] = 'not_' + tokens[i + 1]
@@ -451,16 +463,20 @@ def preprocessing_RNN(text):
     processed_text = ' '.join(tokens)
     return processed_text
 
+
 def clean_LSTM(text):
-    sent=removeemoji(text)
-    sent=filter_english_comments(sent)
-    sent=preprocessing(text)
+    sent = removeemoji(text)
+    sent = filter_english_comments(sent)
+    sent = preprocessing(text)
     # print(sent)
     return sent
+
+
 def clean_RNN(text):
-    sent=removeemoji(text)
-    sent=filter_english_comments(sent)
-    sent=preprocessing_RNN(text)
-    print(sent)
+    sent = removeemoji(text)
+    print(f"removeemoji\t {sent}")
+    sent = filter_english_comments(sent)
+    print(f"filter_english_comments\t {sent}")
+    sent = preprocessing_RNN(sent)
+    print(f"preprocessing_RNN\t {sent}")
     return sent
-    
