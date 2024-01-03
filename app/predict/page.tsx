@@ -44,11 +44,7 @@ export default function Text() {
               Single Text{" "}
             </Link>
             Link or instead try for{" "}
-            <Link
-              className="text-blue-500 font-bold underline"
-              href={"https://www.youtube.com/"}
-              target="_"
-            >
+            <Link className="text-blue-500 font-bold underline" href={"./"}>
               {" "}
               Youtube{" "}
             </Link>

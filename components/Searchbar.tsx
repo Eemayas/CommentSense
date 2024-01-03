@@ -144,6 +144,7 @@ const Searchbar = () => {
             comment,
             pageNumber: "1",
           },
+          timeout: 180000, // Timeout in milliseconds (3 minutes)
         }
       );
       dispatch({

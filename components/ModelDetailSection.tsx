@@ -27,17 +27,17 @@ const ModelDetailSection = () => {
   const modelData = [
     {
       model: "LSTM",
-      accuracy: "0",
-      precision: "0",
-      recall: "0",
-      f1: "0",
+      accuracy: "91.28%",
+      precision: "0.91",
+      recall: "0.90",
+      f1: "0.90",
     },
     {
       model: "GRU",
-      accuracy: "0",
-      precision: "0",
-      recall: "0",
-      f1: "0",
+      accuracy: "89.78%",
+      precision: "0.90",
+      recall: "0.90",
+      f1: "0.90",
     },
     {
       model: "RNN",
