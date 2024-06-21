@@ -4,6 +4,8 @@ from nltk.corpus import stopwords
 import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
+import nltk
+nltk.download('punkt')
 nltk.download('stopwords')
 
 # function to completely remove the emojis from the comments using re
@@ -33,8 +35,8 @@ def removeemoji(text):
                                "]+", flags=re.UNICODE)
 
     # Use the sub method to remove emojis
-    text_no_emojis = emoji_pattern.sub(r'', text)
-    return text_no_emojis
+    text_no_emojis = emoji_pattern.sub(r'emoji', text)
+    return text_no_emojis.encode('utf-8').decode('unicode-escape')
 
 
 def filter_english_comments(text):
