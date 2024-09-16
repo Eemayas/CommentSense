@@ -4,20 +4,20 @@ from flask import jsonify
 from googleapiclient.discovery import build
 from flask import jsonify
 from preprocessing import filter_english_comments
-from apis import YOUTUBEAPI
+from apis import YOUTUBE_API
 from constants import commentCountPerPage
 
 
-def get_videoid(url):
-    try:
-        ytobject = YouTube(url)
-        print(ytobject.title)
-        return ytobject.video_id
-    except Exception as e:
-        print(f"Error: {str(e)}")
+# def get_videoid(url):
+#     try:
+#         ytobject = YouTube(url)
+#         print(ytobject.title)
+#         return ytobject.video_id
+#     except Exception as e:
+#         print(f"Error: {str(e)}")
 
 
-youtube = build("youtube", "v3", developerKey=YOUTUBEAPI)
+youtube = build("youtube", "v3", developerKey=YOUTUBE_API)
 commentlist = []
 
 
@@ -29,27 +29,30 @@ def getComments(videoid, pagecountStart, pagecountRange, commentsCount=100):
         pagecount = pagecountStart
         while True:
             comment_request = youtube.commentThreads().list(
-                part='snippet',
+                part="snippet",
                 videoId=videoid,
-                textFormat='plainText',
+                textFormat="plainText",
                 maxResults=10000,
-                pageToken=pagetoken
+                pageToken=pagetoken,
             )
             result = comment_request.execute()
-            for item in result['items']:
-                newComment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+            for item in result["items"]:
+                newComment = item["snippet"]["topLevelComment"]["snippet"][
+                    "textDisplay"
+                ]
                 newComment = filter_english_comments(newComment)
-                if (newComment != "" and newComment != "."):
+                if newComment != "" and newComment != ".":
                     commentlist.append(
-                        item['snippet']['topLevelComment']['snippet']['textDisplay'])
+                        item["snippet"]["topLevelComment"]["snippet"]["textDisplay"]
+                    )
             # if 'nextPageToken' in result and pagecount<(pagecountStart+pagecountRange):
-            if 'nextPageToken' in result and len(commentlist) < commentsCount:
-                pagetoken = result['nextPageToken']
+            if "nextPageToken" in result and len(commentlist) < commentsCount:
+                pagetoken = result["nextPageToken"]
                 pagecount += 1
                 print(pagecount)
             else:
                 break
-        print("getComments \t "+str(len(commentlist)))
+        print("getComments \t " + str(len(commentlist)))
         return commentlist
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -58,8 +61,10 @@ def getComments(videoid, pagecountStart, pagecountRange, commentsCount=100):
 def getCertainComments(page_number):
     try:
         global commentlist
-        print("getCertainComments LSTM"+str(len(commentlist)))
-        return commentlist[(page_number-1)*commentCountPerPage:page_number*commentCountPerPage]
+        print("getCertainComments LSTM" + str(len(commentlist)))
+        return commentlist[
+            (page_number - 1) * commentCountPerPage : page_number * commentCountPerPage
+        ]
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
