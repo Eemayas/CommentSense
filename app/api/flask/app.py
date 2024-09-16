@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 from test import data
 from flask_cors import CORS
 from pytube import YouTube
-from constants import commentCountPerPage
+from constants import commentCountPerPage, file_ids
 import global_variables
 from Analysis.LSTM import (
     get_Comment_Analysis_LSTM,
@@ -20,12 +20,11 @@ from Analysis.roberta import (
 from Analysis.RNN import get_Comment_Analysis_RNN, get_Comment_Analysis_pagination_RNN
 from Analysis.singleComment import single_comment_analysis
 from utils.comment_scrapping import get_comments
+from utils.model_downloader import download_model_tokenizer
 
 
 app = Flask(__name__)
 CORS(app)
-
-model = "LSTM"
 
 
 @app.route("/comment_scrape", methods=["GET"])
@@ -59,15 +58,14 @@ def comment_scrape_endpoint_main():
 
 @app.route("/get_comments_analysis", methods=["GET"])
 def get_comments_Analysis():
-    global model
     # Fetch parameters from request args
-    model = request.args.get("model")
+    global_variables.model = request.args.get("model")
     pageNumber = request.args.get("pageNumber")
     youtube_link = request.args.get("youtubeLink")
     comment = request.args.get("comment")
 
     # Check for missing or empty parameters
-    if not model:
+    if not global_variables.model:
         return jsonify({"error": "Model parameter is required"}), 400
     if not pageNumber:
         return jsonify({"error": "PageNumber parameter is required"}), 400
@@ -96,13 +94,12 @@ def get_comments_Analysis():
         )
 
     # return get_Comment_Analysis_pagination_LSTM(pageNumber)
-    if model == "LSTM":
+    if global_variables.model == "LSTM":
         return get_Comment_Analysis_Rob()
         # return get_Comment_Analysis_LSTM()
-    if model == "RNN":
-        # return get_Comment_Analysis_Rob()
+    if global_variables.model == "RNN":
         return get_Comment_Analysis_RNN()
-    if model == "Roberta":
+    if global_variables.model == "Roberta":
         return get_Comment_Analysis_Rob(comments=comments[:commentCountPerPage])
     else:
         return get_Comment_Analysis_RNN()
@@ -134,23 +131,17 @@ def get_comments_Analysis_pagination():
                 500,
             )
 
-    if model == "LSTM":
+    if global_variables.model == "LSTM":
         return get_Comment_Analysis_pagination_Rob(page_number)
         # return get_Comment_Analysis_pagination_part_2_LSTM(pageNumber)
-    if model == "RNN":
+    if global_variables.model == "RNN":
         # return get_Comment_Analysis_pagination_Rob(pageNumber)
         return get_Comment_Analysis_pagination_RNN(page_number)
-    if model == "Roberta":
+    if global_variables.model == "Roberta":
         return get_Comment_Analysis_pagination_Rob(page_number)
     else:
         return get_Comment_Analysis_pagination_RNN(page_number)
         # return get_Comment_Analysis_pagination_part_2_GRU(pageNumber)
-
-
-# Same as below
-@app.route("/predict/text", methods=["GET"])
-def predict_endpoint():
-    return single_comment_analysis()
 
 
 @app.route("/single-comment-analysis", methods=["GET"])
@@ -163,10 +154,6 @@ def home_endpoint():
     return "Flask is Up and Running"
 
 
-@app.route("/flask")
-def homes_endpoint():
-    return "Welcome"
-
-
 if __name__ == "__main__":
+    download_model_tokenizer(file_ids)
     app.run(debug=True)
