@@ -2,7 +2,6 @@ import re
 from flask import Flask, request, jsonify
 from test import data
 from flask_cors import CORS
-from getComments import get_Comment_try
 from pytube import YouTube
 from constants import commentCountPerPage
 import global_variables
