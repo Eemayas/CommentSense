@@ -92,6 +92,16 @@ def get_Comment_Analysis_pagination_Rob(page_number):
             comment_list=global_variables.comment_list, page_number=page_number
         )
 
+        if comments is None or len(comments) == 0:
+            return (
+                jsonify(
+                    {
+                        "error": "(Comment Analysis Roberta Pagination) No comments provided"
+                    }
+                ),
+                400,
+            )
+
         # Process each comment and predict sentiment using run_roberta_prediction
         for comment in comments:
             if not isinstance(comment, str):

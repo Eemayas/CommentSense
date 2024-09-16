@@ -93,14 +93,16 @@ def get_comments_Analysis():
             500,
         )
 
+    sliced_comments = comments[:commentCountPerPage]
+
     # return get_Comment_Analysis_pagination_LSTM(pageNumber)
     if global_variables.model == "LSTM":
         return get_Comment_Analysis_Rob()
         # return get_Comment_Analysis_LSTM()
     if global_variables.model == "RNN":
-        return get_Comment_Analysis_RNN()
+        return get_Comment_Analysis_RNN(comments=sliced_comments)
     if global_variables.model == "Roberta":
-        return get_Comment_Analysis_Rob(comments=comments[:commentCountPerPage])
+        return get_Comment_Analysis_Rob(comments=sliced_comments)
     else:
         return get_Comment_Analysis_RNN()
         # return get_Comment_Analysis_GRU()
