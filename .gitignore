@@ -9,6 +9,7 @@
 #flask
 /app/api/flask/env/
 **/env/
+venv
 /app/api/flask/__pycache__/
 /app/api/flask/sentimentmodel.h5
 /app/api/flask/apis.py
