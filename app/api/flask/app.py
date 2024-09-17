@@ -1,13 +1,15 @@
 import re
-import gdown
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-from pytube import YouTube
-from constants import commentCountPerPage, file_ids
-import global_variables
 import pickle
+from pytube import YouTube
+from flask_cors import CORS
 from keras.models import load_model
 from keras.preprocessing.text import Tokenizer
+from flask import Flask, request, jsonify
+
+import global_variables
+
+from constants import commentCountPerPage, file_ids
+
 from Analysis.LSTM import (
     get_Comment_Analysis_LSTM,
     get_Comment_Analysis_pagination_LSTM,
@@ -22,6 +24,7 @@ from Analysis.roberta import (
 )
 from Analysis.RNN import get_Comment_Analysis_RNN, get_Comment_Analysis_pagination_RNN
 from Analysis.singleComment import single_comment_analysis
+
 from utils.comment_scrapping import get_comments
 from utils.model_downloader import download_model_tokenizer
 

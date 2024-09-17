@@ -1,7 +1,9 @@
 from flask import request, jsonify
 from preprocessing import preprocessing_RNN
-from Analysis.roberta import preprocess_Roberta, tokenizer_Roberta, model_Roberta
 import global_variables
+
+from Analysis.roberta import preprocess_Roberta, tokenizer_Roberta, model_Roberta
+
 from utils.prediction_utils import run_model_prediction, run_roberta_prediction
 from utils.utils import filter_english_comments, remove_emojis
 

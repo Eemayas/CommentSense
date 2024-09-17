@@ -2,6 +2,7 @@ import json
 import pandas as pd
 from flask import jsonify
 from preprocessing import clean_RNN
+
 import global_variables
 
 from utils.comment_scrapping import get_certain_comments
