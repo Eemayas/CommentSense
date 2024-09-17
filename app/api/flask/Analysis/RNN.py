@@ -2,7 +2,6 @@ import json
 import pandas as pd
 from flask import jsonify
 from preprocessing import clean_RNN
-from constants import tokenizer_RNN, rnn
 
 import global_variables
 
@@ -37,7 +36,10 @@ def get_Comment_Analysis_RNN(comments: list):
             if comment and comment != "" and comment != ".":
                 # Call the run_model_prediction function
                 sentiment_type, scores = run_model_prediction(
-                    tokenizer_RNN, rnn, comment, maxlen=100
+                    global_variables.tokenizer_RNN,
+                    global_variables.RNN,
+                    comment,
+                    maxlen=100,
                 )
 
                 # Create a new row for the DataFrame
@@ -98,7 +100,10 @@ def get_Comment_Analysis_pagination_RNN(page_number):
             if comment and comment != "" and comment != ".":
                 # Call the run_model_prediction function
                 sentiment_type, scores = run_model_prediction(
-                    tokenizer_RNN, rnn, comment, maxlen=100
+                    global_variables.tokenizer_RNN,
+                    global_variables.RNN,
+                    comment,
+                    maxlen=100,
                 )
                 # Append the comment and its sentiment scores to the DataFrame
                 new_row = {

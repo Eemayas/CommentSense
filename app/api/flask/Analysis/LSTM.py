@@ -2,8 +2,6 @@ import json
 import pandas as pd
 from flask import jsonify
 from preprocessing import clean_RNN
-from constants import lstm, tokenizer_LSTM
-
 import global_variables
 
 from utils.comment_scrapping import get_certain_comments
@@ -38,7 +36,10 @@ def get_Comment_Analysis_LSTM(comments: list):
             if comment and comment != "" and comment != ".":
                 # Call the run_model_prediction function
                 sentiment_type, scores = run_model_prediction(
-                    tokenizer_LSTM, lstm, comment, maxlen=100
+                    global_variables.tokenizer_LSTM,
+                    global_variables.LSTM,
+                    comment,
+                    maxlen=100,
                 )
 
                 new_row = {
@@ -96,7 +97,7 @@ def get_Comment_Analysis_pagination_LSTM(page_number):
             if comment and comment != "" and comment != ".":
                 # Call the run_model_prediction function
                 sentiment_type, scores = run_model_prediction(
-                    tokenizer_LSTM, lstm, comment, maxlen=100
+                   global_variables.tokenizer_LSTM, global_variables.LSTM, comment, maxlen=100
                 )
 
                 new_row = {

@@ -6,43 +6,29 @@ import pickle
 
 commentCountPerPage: int = 12
 
-# Load Keras model
-lstm = load_model("app/api/flask/Model/LSTM_sentimentmodel.h5")
-rnn = load_model("app/api/flask/Model/RNN_sentimentmodel.h5")
-gru = load_model("app/api/flask/Model/GRU_sentimentmodel.h5")
-# rnn = load_model('app/api/flask/rnnmodel.h5')
-
-# lstm = load_model("app/api/flask/downloaded_files/LSTM_sentimentmodel.h5")
-# rnn = load_model("app/api/flask/downloaded_files/RNN_sentimentmodel.h5")
-# gru = load_model("app/api/flask/downloaded_files/GRU_sentimentmodel.h5")
-
+# # Load Keras model
+# lstm = load_model("app/api/flask/Model/LSTM_sentimentmodel.h5")
+# rnn = load_model("app/api/flask/Model/RNN_sentimentmodel.h5")
+# gru = load_model("app/api/flask/Model/GRU_sentimentmodel.h5")
+# # rnn = load_model('app/api/flask/rnnmodel.h5')
 
 # tokenizer_LSTM = Tokenizer()
-# with open("app/api/flask/downloaded_files/LSTMtokenizer.pkl", "rb") as tokenizer_file:
+# with open("app/api/flask/Tokenizer/LSTMtokenizer.pkl", "rb") as tokenizer_file:
 #     tokenizer_LSTM = pickle.load(tokenizer_file)
 
 # tokenizer_RNN = Tokenizer()
-# with open(
-#     "app/api/flask/downloaded_files/RNNtokenizer.pkl", "rb"
-# ) as tokenizer_file_RNN:
+# with open("app/api/flask/Tokenizer/RNNtokenizer.pkl", "rb") as tokenizer_file_RNN:
 #     tokenizer_RNN = pickle.load(tokenizer_file_RNN)
 
 
-tokenizer_LSTM = Tokenizer()
-with open("app/api/flask/Tokenizer/LSTMtokenizer.pkl", "rb") as tokenizer_file:
-    tokenizer_LSTM = pickle.load(tokenizer_file)
-
-tokenizer_RNN = Tokenizer()
-with open("app/api/flask/Tokenizer/RNNtokenizer.pkl", "rb") as tokenizer_file_RNN:
-    tokenizer_RNN = pickle.load(tokenizer_file_RNN)
 # Dictionary containing filenames and their corresponding Google Drive file IDs
 file_ids = {
-    "LSTMtokenizer.pkl": "1cOTPKdFxfoJyUgu_jPHDqftHIR9dk5YU",
-    "RNNtokenizer.pkl": "1ZPu4d8MHuB2m2IVapJMj1YuqqDBQmpPf",
-    "GRU_sentimentmodel.h5": "1wzYPdydceMAb_Xp0FfD_1X6Veu42kKPw",
-    "LSTM_sentimentmodel.h5": "1yd65IwfdnBvLMM6QdZCJNxX82lOKy0D6",
-    "RNN_sentimentmodel.h5": "1uCP0MlSYftnIpKV5asSnmnLKmRkJW77o",
-    "rnnmodel.h5": "1SvmsIwG9Z62Qokx16yNEJmLeAuR7sTCq",
+    "LSTMtokenizer.pkl": "https://drive.google.com/uc?id=1N4GEIE-5S4w__5zkb6nfMemdvitFKlt8",
+    "RNNtokenizer.pkl": "https://drive.google.com/uc?id=1a0j2ZFgve0gBc8viw5xd6yyf6pnh4lXQ",
+    "GRU_sentimentmodel.h5": "https://drive.google.com/uc?id=1bT7A40Iq8zcV3jy4ZwOir6NM0CfbRI5Z",
+    "LSTM_sentimentmodel.h5": "https://drive.google.com/uc?id=1u_XMGhnlOcIqTqaid1K8p-azeuLzlhBH",
+    "RNN_sentimentmodel.h5": "https://drive.google.com/uc?id=1PZOjp-IasfKuiidblk3hEBfcQslWk90E",
+    "rnnmodel.h5": "https://drive.google.com/uc?id=1HvGBifFz_Rj_9CAKbrNr92-JGPj-rRZD",
 }
 
 

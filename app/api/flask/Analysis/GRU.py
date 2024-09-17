@@ -1,21 +1,15 @@
 import json
-from flask import jsonify, request
-from pytube import YouTube
+from flask import jsonify
 from flask import jsonify
 import pandas as pd
-import numpy as np
-import re
-from constants import tokenizer_LSTM, gru
-from keras.preprocessing.sequence import pad_sequences
+
 from preprocessing import clean_RNN
-from flask import request, jsonify
+from flask import jsonify
 import json
-from constants import commentCountPerPage
 import json
 import pandas as pd
 from flask import jsonify
 from preprocessing import clean_RNN
-from constants import tokenizer_RNN, rnn
 
 import global_variables
 
@@ -52,7 +46,10 @@ def get_Comment_Analysis_GRU(comments: list):
             if comment and comment != "" and comment != ".":
                 # Call the run_model_prediction function
                 sentiment_type, scores = run_model_prediction(
-                    tokenizer_LSTM, gru, comment, maxlen=100
+                    global_variables.tokenizer_LSTM,
+                    global_variables.GRU,
+                    comment,
+                    maxlen=100,
                 )
 
                 new_row = {
@@ -112,7 +109,10 @@ def get_Comment_Analysis_pagination_GRU(page_number):
             if comment and comment != "" and comment != ".":
                 # Call the run_model_prediction function
                 sentiment_type, scores = run_model_prediction(
-                    tokenizer_LSTM, gru, comment, maxlen=100
+                    global_variables.tokenizer_LSTM,
+                    global_variables.GRU,
+                    comment,
+                    maxlen=100,
                 )
                 new_row = {
                     "comment": initComment,

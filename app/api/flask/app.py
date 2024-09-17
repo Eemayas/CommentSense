@@ -1,10 +1,13 @@
 import re
+import gdown
 from flask import Flask, request, jsonify
-from test import data
 from flask_cors import CORS
 from pytube import YouTube
 from constants import commentCountPerPage, file_ids
 import global_variables
+import pickle
+from keras.models import load_model
+from keras.preprocessing.text import Tokenizer
 from Analysis.LSTM import (
     get_Comment_Analysis_LSTM,
     get_Comment_Analysis_pagination_LSTM,
@@ -153,4 +156,25 @@ def home_endpoint():
 
 if __name__ == "__main__":
     download_model_tokenizer(file_ids)
+    global_variables.LSTM = load_model(
+        "app/api/flask/downloaded_files/LSTM_sentimentmodel.h5"
+    )
+    global_variables.RNN = load_model(
+        "app/api/flask/downloaded_files/RNN_sentimentmodel.h5"
+    )
+    global_variables.GRU = load_model(
+        "app/api/flask/downloaded_files/GRU_sentimentmodel.h5"
+    )
+    global_variables.tokenizer_LSTM = Tokenizer()
+    with open(
+        "app/api/flask/downloaded_files/LSTMtokenizer.pkl", "rb"
+    ) as tokenizer_file:
+        tokenizer_LSTM = pickle.load(tokenizer_file)
+
+    global_variables.tokenizer_RNN = Tokenizer()
+    with open(
+        "app/api/flask/downloaded_files/RNNtokenizer.pkl", "rb"
+    ) as tokenizer_file_RNN:
+        tokenizer_RNN = pickle.load(tokenizer_file_RNN)
+
     app.run(debug=True)

@@ -1,8 +1,7 @@
 from flask import request, jsonify
 from preprocessing import preprocessing_RNN
-from constants import lstm, tokenizer_LSTM, tokenizer_RNN, rnn, gru
 from Analysis.roberta import preprocess_Roberta, tokenizer_Roberta, model_Roberta
-
+import global_variables
 from utils.prediction_utils import run_model_prediction, run_roberta_prediction
 from utils.utils import filter_english_comments, remove_emojis
 
@@ -63,17 +62,17 @@ def single_comment_analysis():
     else:
         # LSTM prediction
         type_LSTM, scores_LSTM = run_model_prediction(
-            tokenizer_LSTM, lstm, comment, maxlen=50
+            global_variables.tokenizer_LSTM, global_variables.LSTM, comment, maxlen=50
         )
 
         # GRU prediction
         type_GRU, scores_GRU = run_model_prediction(
-            tokenizer_LSTM, gru, comment, maxlen=50
+            global_variables.tokenizer_LSTM, global_variables.GRU, comment, maxlen=50
         )
 
         # RNN prediction
         type_RNN, scores_RNN = run_model_prediction(
-            tokenizer_RNN, rnn, comment, maxlen=100
+            global_variables.tokenizer_RNN, global_variables.RNN, comment, maxlen=100
         )
 
         # Roberta prediction
