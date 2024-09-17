@@ -7,11 +7,11 @@ from constants import commentCountPerPage, file_ids
 import global_variables
 from Analysis.LSTM import (
     get_Comment_Analysis_LSTM,
-    get_Comment_Analysis_pagination_part_2_LSTM,
+    get_Comment_Analysis_pagination_LSTM,
 )
 from Analysis.GRU import (
     get_Comment_Analysis_GRU,
-    get_Comment_Analysis_pagination_part_2_GRU,
+    get_Comment_Analysis_pagination_GRU,
 )
 from Analysis.roberta import (
     get_Comment_Analysis_Rob,
@@ -95,17 +95,14 @@ def get_comments_Analysis():
 
     sliced_comments = comments[:commentCountPerPage]
 
-    # return get_Comment_Analysis_pagination_LSTM(pageNumber)
     if global_variables.model == "LSTM":
-        return get_Comment_Analysis_Rob()
-        # return get_Comment_Analysis_LSTM()
+        return get_Comment_Analysis_LSTM(comments=sliced_comments)
     if global_variables.model == "RNN":
         return get_Comment_Analysis_RNN(comments=sliced_comments)
     if global_variables.model == "Roberta":
         return get_Comment_Analysis_Rob(comments=sliced_comments)
     else:
-        return get_Comment_Analysis_RNN()
-        # return get_Comment_Analysis_GRU()
+        return get_Comment_Analysis_GRU(comments=sliced_comments)
 
 
 @app.route("/get_comments_analysis_pagination", methods=["GET"])
@@ -133,17 +130,15 @@ def get_comments_Analysis_pagination():
                 500,
             )
 
+    print(f"\nCurrently analyzing model: {global_variables.model}")
     if global_variables.model == "LSTM":
-        return get_Comment_Analysis_pagination_Rob(page_number)
-        # return get_Comment_Analysis_pagination_part_2_LSTM(pageNumber)
+        return get_Comment_Analysis_pagination_LSTM(page_number)
     if global_variables.model == "RNN":
-        # return get_Comment_Analysis_pagination_Rob(pageNumber)
         return get_Comment_Analysis_pagination_RNN(page_number)
     if global_variables.model == "Roberta":
         return get_Comment_Analysis_pagination_Rob(page_number)
     else:
-        return get_Comment_Analysis_pagination_RNN(page_number)
-        # return get_Comment_Analysis_pagination_part_2_GRU(pageNumber)
+        return get_Comment_Analysis_pagination_GRU(page_number)
 
 
 @app.route("/single-comment-analysis", methods=["GET"])

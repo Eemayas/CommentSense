@@ -1,62 +1,52 @@
 import json
-from flask import jsonify, request
-from pytube import YouTube
-from flask import jsonify
 import pandas as pd
-import numpy as np
-import re
-from constants import lstm, tokenizer_LSTM
-from keras.preprocessing.sequence import pad_sequences
+from flask import jsonify
 from preprocessing import clean_RNN
-from flask import request, jsonify
-import json
-from constants import commentCountPerPage
+from constants import lstm, tokenizer_LSTM
 
-from utils.comment_scrapping import get_certain_comments, get_comments
+import global_variables
+
+from utils.comment_scrapping import get_certain_comments
+from utils.prediction_utils import run_model_prediction
 
 
-def get_Comment_Analysis_LSTM():
+def get_Comment_Analysis_LSTM(comments: list):
+    """
+    Analyze YouTube comments using LSTM sentiment analysis model.
+
+    Args:
+        comments (list): A list of comments to be analyzed.
+
+    Returns:
+        JSON response containing comments and their sentiment scores.
+    """
     df_predict = pd.DataFrame(
         columns=["comment", "type", "negative_score", "neutral_score", "positive_score"]
     )
 
     try:
-        youtubeLink = request.args.get("youtubeLink")
-        comment = request.args.get("comment")
-        match = re.search(r"\d+", comment)
-        commentCount = 100 if not match else int(match.group())
-        if match:
-            commentCount = int(match.group())
-            print(commentCount)
-        else:
-            print("No number found in the text")
-        video_url = youtubeLink
-        if not video_url:
-            return jsonify({"error": "Video URL is required"}), 400
-
-        video_id = YouTube(video_url).video_id
-        comments = get_comments(video_id, 0, 1, commentCount)
-        # Check if comments is None
-        if comments is None:
-            return jsonify({"error": "Failed to retrieve comments"}), 500
-        comments = comments[:commentCountPerPage]
+        if comments is None or len(comments) == 0:
+            return (
+                jsonify({"error": "(Comment Analysis Roberta) No comments provided"}),
+                400,
+            )
+        # Process each comment and predict sentiment using run_model_prediction
         for comment in comments:
             initComment = comment
             comment = clean_RNN(comment)
+
             if comment and comment != "" and comment != ".":
-                sequence = tokenizer_LSTM.texts_to_sequences([comment])
-                padded_sequences = pad_sequences(sequence, maxlen=50)
-                prediction = lstm.predict(padded_sequences)
-                result1 = prediction.tolist()
-                result = result1[0]
-                type = np.argmax(np.array(result))
-                type = 0 if type == 0 else 4 if type == 2 else 2
+                # Call the run_model_prediction function
+                sentiment_type, scores = run_model_prediction(
+                    tokenizer_LSTM, lstm, comment, maxlen=100
+                )
+
                 new_row = {
                     "comment": initComment,
-                    "type": type,
-                    "negative_score": round(result[0] * 100, 2),
-                    "neutral_score": round(result[1] * 100, 2),
-                    "positive_score": round(result[2] * 100, 2),
+                    "type": sentiment_type,
+                    "negative_score": round(scores[0] * 100, 2),
+                    "neutral_score": round(scores[1] * 100, 2),
+                    "positive_score": round(scores[2] * 100, 2),
                 }
                 df_predict.loc[len(df_predict)] = new_row
         # Convert DataFrame to JSON
@@ -65,37 +55,56 @@ def get_Comment_Analysis_LSTM():
         # Load JSON string back to Python object and return as JSON
         return jsonify({"comments": json.loads(json_result)})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": f"(Comment Analysis LSTM) {str(e)}"}), 500
 
 
-def get_Comment_Analysis_pagination_part_2_LSTM(page_number):
+def get_Comment_Analysis_pagination_LSTM(page_number):
+    """
+    Analyze YouTube comments in paginated manner using LSTM model.
+
+    Args:
+        page_number (int): The current page number of comments.
+
+    Returns:
+        JSON response containing comments and their sentiment scores.
+    """
     df_predict = pd.DataFrame(
         columns=["comment", "type", "negative_score", "neutral_score", "positive_score"]
     )
     try:
         page_number = int(page_number)
-        # Check if comments is None
-        comments = get_comments(page_number)
-        if comments is None:
-            return jsonify({"error": "Failed to retrieve comments"}), 500
-        print("get_Comment_Analysis_pagination_LSTM \t" + str(len(comments)))
+        # Fetch paginated comments
+        comments = get_certain_comments(
+            comment_list=global_variables.comment_list, page_number=page_number
+        )
+
+        if comments is None or len(comments) == 0:
+            return (
+                jsonify(
+                    {"error": "(Comment Analysis RNN Pagination) No comments provided"}
+                ),
+                400,
+            )
+
         for comment in comments:
+            if not isinstance(comment, str):
+                continue
+
             initComment = comment
             comment = clean_RNN(comment)
+
             if comment and comment != "" and comment != ".":
-                sequence = tokenizer_LSTM.texts_to_sequences([comment])
-                padded_sequences = pad_sequences(sequence, padding="post", maxlen=50)
-                prediction = lstm.predict(padded_sequences)
-                result1 = prediction.tolist()
-                result = result1[0]
-                type = np.argmax(np.array(result))
-                type = 0 if type == 0 else 4 if type == 2 else 2
+                # Call the run_model_prediction function
+                sentiment_type, scores = run_model_prediction(
+                    tokenizer_LSTM, lstm, comment, maxlen=100
+                )
+
                 new_row = {
                     "comment": initComment,
-                    "type": type,
-                    "negative_score": round(result[0] * 100, 2),
-                    "neutral_score": round(result[1] * 100, 2),
-                    "positive_score": round(result[2] * 100, 2),
+                    "type": sentiment_type,
+                    "negative_score": round(scores[0] * 100, 2),
+                    "neutral_score": round(scores[1] * 100, 2),
+                    "positive_score": round(scores[2] * 100, 2),
                 }
                 #  print(new_row)
                 df_predict.loc[len(df_predict)] = new_row
