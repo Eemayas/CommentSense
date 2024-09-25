@@ -1,5 +1,7 @@
+import csv
 import json
 import pandas as pd
+import urllib.request
 from flask import jsonify
 from transformers import TFAutoModelForSequenceClassification, AutoTokenizer
 
@@ -9,13 +11,38 @@ from utils.comment_scrapping import get_certain_comments
 from utils.prediction_utils import run_roberta_prediction
 from utils.preprocessing import preprocess_Roberta
 
-# Load the Roberta model and tokenizer (use local files only)
+# Tasks:
+# emoji, emotion, hate, irony, offensive, sentiment
+# stance/abortion, stance/atheism, stance/climate, stance/feminist, stance/hillary
 task = "sentiment"
 MODEL = f"cardiffnlp/twitter-roberta-base-{task}"
-model_Roberta = TFAutoModelForSequenceClassification.from_pretrained(
-    MODEL, local_files_only=True
-)
-tokenizer_Roberta = AutoTokenizer.from_pretrained(MODEL, local_files_only=True)
+
+# Load the tokenizer from local files if available; otherwise, download from Hugging Face
+try:
+    tokenizer_Roberta = AutoTokenizer.from_pretrained(MODEL, local_files_only=True)
+    model_Roberta = TFAutoModelForSequenceClassification.from_pretrained(
+        MODEL, local_files_only=True
+    )
+except:
+    # If local files are not available, download the tokenizer and model from Hugging Face
+    tokenizer = AutoTokenizer.from_pretrained(MODEL)
+
+    # Download label mapping for the task
+    labels = []
+    mapping_link = f"https://raw.githubusercontent.com/cardiffnlp/tweeteval/main/datasets/{task}/mapping.txt"
+    with urllib.request.urlopen(mapping_link) as f:
+        html = f.read().decode("utf-8").split("\n")
+        csvreader = csv.reader(html, delimiter="\t")
+    labels = [row[1] for row in csvreader if len(row) > 1]
+
+    # Download the model from Hugging Face
+    model = TFAutoModelForSequenceClassification.from_pretrained(MODEL)
+
+    # Save the downloaded model and tokenizer locally for future use
+    model.save_pretrained(MODEL)
+    tokenizer.save_pretrained(MODEL)
+
+    print("Model and tokenizer downloaded and saved successfully.")
 
 
 # Updated get_Comment_Analysis_Rob using run_roberta_prediction
