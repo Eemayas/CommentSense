@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { Pagination, Button, Divider } from "@nextui-org/react";
@@ -123,14 +125,13 @@ const CommentSection = ({ datassss }: Props) => {
               });
               if (!(e in commentDataPagination)) {
                 try {
-                  const response = await axios.get(
-                    "http://localhost:3000/api/flask/get_comments_analysis_pagination",
-                    {
+                  const response: AxiosResponse<any, any> =
+                    await getCommentsAnalysisPagination({
+                      baseUrl: BASEURL,
                       params: {
                         pageNumber: e.toString(),
                       },
-                    }
-                  );
+                    });
                   await dispatch({
                     type: ADD_COMMENT_DATA_PAGINATION,
                     payload: { key: e, value: response.data.comments },
@@ -180,7 +181,11 @@ import {
   IS_SHOW_SPINNER,
   RESET_COMMENT_DATA_SUCCESS,
 } from "@/lib/store/Reducer/constant";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import {
+  BASEURL,
+  getCommentsAnalysisPagination,
+} from "@/app/constants/apiEndpints";
 
 export const VideoSection = () => {
   return <div>VideoSection</div>;

@@ -1,4 +1,8 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @format
+ * @type {import('next').NextConfig}
+ */
+
 const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
@@ -13,7 +17,7 @@ const nextConfig = {
         source: "/api/flask/:path*",
         destination:
           process.env.NODE_ENV === "development"
-            ? "http://127.0.0.1:5328/:path*"
+            ? "http://127.0.0.1:5000/:path*"
             : "/api/flask/",
       },
     ];

@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import { scrollToSection } from "@/lib/action/ScrollFunctionalities";
@@ -7,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   ADD_COMMENT_DATA_PAGINATION,
   ADD_COMMENT_DATA_SUCCESS,
+  IS_SHOW_ERROR_MODAL,
   IS_SHOW_SPINNER,
   RESET_COMMENT_DATA_PAGINATION,
   RESET_COMMENT_DATA_SUCCESS,
@@ -15,6 +18,7 @@ import {
 } from "@/lib/store/Reducer/constant";
 import axios from "axios";
 import { CommentData } from "@/types";
+import { BASEURL, getCommentsAnalysis } from "@/app/constants/apiEndpints";
 
 const Searchbar = () => {
   const commentDatas: CommentData[] = useSelector(
@@ -135,9 +139,9 @@ const Searchbar = () => {
       payload: true,
     });
     try {
-      const response = await axios.get(
-        "http://localhost:3000/api/flask/get_comments_analysis",
-        {
+      const response = await getCommentsAnalysis({
+        baseUrl: BASEURL,
+        config: {
           params: {
             youtubeLink: youtubeLink,
             model,
@@ -145,8 +149,10 @@ const Searchbar = () => {
             pageNumber: "1",
           },
           timeout: 180000, // Timeout in milliseconds (3 minutes)
-        }
-      );
+        },
+      });
+
+      console.log({ response });
       dispatch({
         type: SEARCH_PROMPT_EDIT,
         payload: {
@@ -156,21 +162,25 @@ const Searchbar = () => {
           pageNumber: "1",
         },
       });
-      console.log(response.data);
-      console.log(response.data.comments);
-      console.log(commentDatas);
+
       await dispatch({
         type: ADD_COMMENT_DATA_SUCCESS,
-        payload: response.data.comments,
+        payload: response.comments,
       });
       await dispatch({
         type: ADD_COMMENT_DATA_PAGINATION,
-        payload: { key: 1, value: response.data.comments },
+        payload: { key: 1, value: response.comments },
       });
-      let receivedComments = response.data.comments;
-      // console.log(response.data[0].comments);
     } catch (error) {
       console.error("Error fetching data:", error);
+      dispatch({
+        type: IS_SHOW_ERROR_MODAL,
+        payload: {
+          isShow: true,
+          title: "Error",
+          description: `${error}`,
+        },
+      });
     }
 
     console.log({

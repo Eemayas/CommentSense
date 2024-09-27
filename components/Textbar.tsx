@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import React, { FormEvent, useState } from "react";
@@ -18,6 +20,7 @@ import {
 import axios from "axios";
 import { CommentData } from "@/types";
 import { addComment, removeComment } from "@/lib/store/Reducer/textReducer";
+import { BASEURL, singleCommentAnalysis } from "@/app/constants/apiEndpints";
 
 const Textbar = () => {
   // const commentDatas: CommentData[] = useSelector(
@@ -40,22 +43,14 @@ const Textbar = () => {
     });
 
     try {
-      const response = await axios.get(
-        "http://localhost:3000/api/flask/predict/text",
-        {
-          params: { text: text },
-        }
-      );
-      // dispatch({
-      //   type: ADD_TEXT,
-      //   payload: {
-      //     text: text,
-      //   },
-      // });
-      console.log(response.data);
+      const response = await singleCommentAnalysis({
+        baseUrl: BASEURL,
+        config: { params: { text: text } },
+      });
+
       await dispatch({
         type: ADD_TEXT,
-        payload: response.data,
+        payload: response,
       });
       dispatch({
         type: IS_SHOW_SUCESS_MODAL,
@@ -65,10 +60,6 @@ const Textbar = () => {
           description: "Text is successfully analyzed",
         },
       });
-      // dispatch({
-      //   type: IS_SHOW_SPINNER,
-      //   payload: false,
-      // });
     } catch (error: any) {
       dispatch({
         type: IS_SHOW_ERROR_MODAL,
@@ -79,8 +70,8 @@ const Textbar = () => {
         },
       });
       console.log("Error fetching data:", error);
-      console.log("Error fetching data:", error.response?.data);
-      console.log("Error fetching data:", error.response?.data.error);
+      // console.log("Error fetching data:", error.response?.data);
+      // console.log("Error fetching data:", error.response?.data.error);
     }
   };
 
