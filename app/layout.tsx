@@ -1,3 +1,5 @@
+/** @format */
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -8,7 +10,12 @@ import ReduxProvider from "@/lib/context/ReduxProvider";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import { CustomSpinner, ErrorModal, SucessModal } from "@/components/Modals";
+import {
+  BaseUrlEntryModal,
+  CustomSpinner,
+  ErrorModal,
+  SucessModal,
+} from "@/components/Modals";
 
 config.autoAddCss = false;
 const inter = Inter({ subsets: ["latin"] });
@@ -35,6 +42,7 @@ export default function RootLayout({
               <CustomSpinner />
               <SucessModal />
               <ErrorModal />
+              <BaseUrlEntryModal />
               <Toaster />
             </main>
           </AuthProvider>{" "}

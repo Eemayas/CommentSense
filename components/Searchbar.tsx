@@ -16,14 +16,14 @@ import {
   SEARCH_PROMPT_EDIT,
   YOUTUBE_LINK,
 } from "@/lib/store/Reducer/constant";
-import axios from "axios";
 import { CommentData } from "@/types";
 import { BASEURL, getCommentsAnalysis } from "@/app/constants/apiEndpints";
+import EndpointSetup from "./EndpointSetup";
 
 const Searchbar = () => {
-  const commentDatas: CommentData[] = useSelector(
-    (state: any) => state.CommentDataReducer
-  );
+  // const commentDatas: CommentData[] = useSelector(
+  //   (state: any) => state.CommentDataReducer
+  // );
   const modelOptions = [
     {
       title: "Roberta",
@@ -74,7 +74,6 @@ const Searchbar = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [model, setModel] = useState(modelOptions[0].title);
   const [comment, setComment] = useState(commentOptions[0].title);
-  const [translatedText, setTranslatedText] = useState("");
 
   const isValidYouTubeURL = (url: string) => {
     try {
@@ -199,7 +198,7 @@ const Searchbar = () => {
 
   return (
     <>
-      <form className=" flex flex-col gap-4 mt-12" onSubmit={handleSubmit}>
+      <form className=" flex flex-col gap-4 mt-5 mb-5" onSubmit={handleSubmit}>
         <div className="flex gap-4  flex-wrap">
           <input
             type="text"
@@ -235,7 +234,8 @@ const Searchbar = () => {
             selectedKeys={comment}
           />
         </div>
-      </form>{" "}
+      </form>
+      <EndpointSetup />
     </>
   );
 };

@@ -1,11 +1,15 @@
+/** @format */
+
 import {
   IS_SHOW_ERROR_MODAL,
   IS_SHOW_SPINNER,
   IS_SHOW_SUCESS_MODAL,
+  IS_SHOW_URL_ENTRY,
 } from "./constant";
 
 const initialStates = {
   spinner: { isShow: false },
+  urlQuery: { isShow: false },
   sucessModal: {
     isShow: false,
     title: "Sucess",
@@ -32,12 +36,21 @@ const ModalReducer = (
         spinner: { isShow: action.payload },
       };
       return updatedSpinner;
+
+    case IS_SHOW_URL_ENTRY:
+      const updatedUrlEntry = {
+        ...initialStates,
+        urlQuery: { isShow: action.payload },
+      };
+      return updatedUrlEntry;
+
     case IS_SHOW_SUCESS_MODAL:
       const updatedSucessModal = {
         ...initialStates,
         sucessModal: action.payload,
       };
       return updatedSucessModal;
+
     case IS_SHOW_ERROR_MODAL:
       console.log("jvgu");
       const updatedErrorModal = {

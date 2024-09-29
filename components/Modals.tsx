@@ -1,5 +1,7 @@
+/** @format */
+
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import {
   Modal,
@@ -13,11 +15,14 @@ import { Buttontype } from "@/types";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { ErrorIcon, TickIcon } from "./Icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useModalStore } from "@/lib/store/zustand/ModalStore";
 import {
   IS_SHOW_ERROR_MODAL,
   IS_SHOW_SUCESS_MODAL,
+  IS_SHOW_URL_ENTRY,
+  SET_BASE_URL,
 } from "@/lib/store/Reducer/constant";
+import InputField from "./InputField";
+import { RootState } from "@/lib/store/Reducer/store";
 
 type LoginModalProps = {
   isError: boolean;
@@ -297,6 +302,124 @@ export const ErrorModal = () => {
           modalInfos.sucessModal.isShow ? "" : "hidden"
         } opacity-25 fixed inset-0 z-40 bg-black`}
       ></div>
+    </>
+  );
+};
+
+export const BaseUrlEntryModal = () => {
+  const dispatch = useDispatch();
+  const modalInfos = useSelector((state: RootState) => state.ModalReducer);
+  const [userInput, setUserInput] = useState<string>("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    // Dispatch your action to close the modal and send the input
+    console.log("User Input: ", userInput);
+
+    dispatch({
+      type: SET_BASE_URL,
+      payload: userInput,
+    });
+    dispatch({
+      type: IS_SHOW_URL_ENTRY,
+      payload: false,
+    });
+    // dispatch(setBaseUrl( userInput));
+    // dispatch(showUrlQuery(false));
+  };
+  console.log(modalInfos);
+
+  return (
+    <>
+      <div
+        className={`justify-center items-center  overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none backdrop-blur-sm ${
+          modalInfos.urlQuery.isShow ? "flex" : "hidden"
+        } `}
+      >
+        <Card
+          // isBlurred
+          className="border-1 border-red-500 sm:w-[385px] sm:min-w-[40vw] min-w-[80vw] flex flex-col items-center gap-2 -translate-y-1/2 p-6 left-1/2 -translate-x-1/2 absolute top-1/2"
+          shadow="sm"
+        >
+          <CardBody>
+            <InputField
+              label={"Enter the API URL: "}
+              value={userInput}
+              onChange={handleInputChange}
+              placeholder="www.api-endpoint.com"
+            />
+          </CardBody>
+          <CardFooter className="justify-evenly">
+            <Button
+              radius="full"
+              className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+              onClick={handleSubmit}
+            >
+              Set Url
+            </Button>
+            <Button
+              radius="full"
+              className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+              onClick={() =>
+                dispatch({
+                  type: IS_SHOW_URL_ENTRY,
+                  payload: false,
+                })
+              }
+            >
+              Cancel
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+      <div
+        className={`${
+          modalInfos.sucessModal.isShow ? "" : "hidden"
+        } opacity-25 fixed inset-0 z-40 bg-black`}
+      ></div>
+
+      {/* <div
+        className={`fixed inset-0 z-50 items-center justify-center overflow-y-auto overflow-x-hidden outline-none backdrop-blur-sm focus:outline-none ${
+          modalInfos.urlQuery.isShow ? "flex" : "hidden"
+        } `}
+      >
+        <div
+          className={`rounded-[10px] bg-gradient-to-br from-green-400 to-blue-600 p-[2px] text-gray-900 hover:text-white dark:text-white md:w-[30rem]`}
+        >
+          <div className="relative h-full w-auto max-w-3xl rounded-lg bg-white p-6 dark:bg-black">
+            <InputField
+              label={"Enter the API URL: "}
+              value={userInput}
+              onChange={handleInputChange}
+              placeholder="www.api-endpoint.com"
+            />
+            <CardFooter className="justify-end">
+              <Button
+                radius="full"
+                className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+                onClick={handleSubmit}
+              >
+                Set Url
+              </Button>
+              <Button
+                radius="full"
+                className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+                onClick={() =>
+                  dispatch({
+                    type: IS_SHOW_URL_ENTRY,
+                    payload: false,
+                  })
+                }
+              >
+                Cancel
+              </Button>
+            </CardFooter>
+          </div>
+        </div>
+      </div> */}
     </>
   );
 };

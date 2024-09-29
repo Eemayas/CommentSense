@@ -1,4 +1,9 @@
+/** @format */
+
 export const LOGIN_ERROR = "LOGIN_ERROR";
+
+export const RESET_BASE_URL = "RESET_BASE_URL";
+export const SET_BASE_URL = "SET_BASE_URL";
 
 export const ERROR = "ERROR";
 
@@ -14,6 +19,8 @@ export const ADD_TEXT = "ADD_TEXT";
 export const REMOVE_TEXT = "REMOVE_TEXT";
 
 export const IS_SHOW_SPINNER = "SHOW_SPINNER";
+
+export const IS_SHOW_URL_ENTRY = "IS_SHOW_URL_ENTRY";
 
 export const IS_SHOW_SUCESS_MODAL = "IS_SHOW_SUCESS_MODAL";
 
