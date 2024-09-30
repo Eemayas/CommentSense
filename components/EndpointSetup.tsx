@@ -39,7 +39,7 @@ const EndpointSetup = () => {
       <div className="text-sm ">
         Run the Flask Server either in local by cloning repo from{" "}
         <a
-          href={"https://github.com/Eemayas/README-Crafter-Flask-Server"}
+          href={"https://github.com/Eemayas/CommentSense"}
           className="font-bold text-blue-500 underline"
           target="_blank"
           rel="noopener noreferrer"
@@ -50,7 +50,7 @@ const EndpointSetup = () => {
         <a
           className="cursor-pointer font-bold text-blue-500 underline"
           href={
-            "https://colab.research.google.com/drive/17xqM5mYzgA3jsJ9oyga-j5-GDQuJg56k"
+            "https://colab.research.google.com/drive/15P4siaaG-bKo0mJxJzguwemtNYRBLSWE"
           }
           target="_blank"
           rel="noopener noreferrer"

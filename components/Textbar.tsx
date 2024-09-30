@@ -5,30 +5,24 @@
 import React, { FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  ADD_COMMENT_DATA_PAGINATION,
-  ADD_COMMENT_DATA_SUCCESS,
   ADD_TEXT,
   IS_SHOW_ERROR_MODAL,
   IS_SHOW_SPINNER,
   IS_SHOW_SUCESS_MODAL,
   REMOVE_TEXT,
-  RESET_COMMENT_DATA_PAGINATION,
-  RESET_COMMENT_DATA_SUCCESS,
-  SEARCH_PROMPT_EDIT,
-  YOUTUBE_LINK,
 } from "@/lib/store/Reducer/constant";
-import axios from "axios";
-import { CommentData } from "@/types";
-import { addComment, removeComment } from "@/lib/store/Reducer/textReducer";
-import { BASEURL, singleCommentAnalysis } from "@/app/constants/apiEndpints";
+import { removeComment } from "@/lib/store/Reducer/textReducer";
+import { singleCommentAnalysis } from "@/app/constants/apiEndpints";
+import { RootState } from "@/lib/store/Reducer/store";
 
 const Textbar = () => {
   // const commentDatas: CommentData[] = useSelector(
-  //   (state: any) => state.CommentDataReducer
+  //   (state: RootState) => state.CommentDataReducer
   // );
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const baseUrl = useSelector((state: RootState) => state.BaseUrlReducer);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,7 +38,7 @@ const Textbar = () => {
 
     try {
       const response = await singleCommentAnalysis({
-        baseUrl: BASEURL,
+        baseUrl: baseUrl,
         config: { params: { text: text } },
       });
 

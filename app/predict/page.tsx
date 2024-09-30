@@ -1,16 +1,21 @@
+/** @format */
+
 "use client";
 import { Divider } from "@nextui-org/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Textbar from "@/components/Textbar";
 import { TextDataEntry, TextDataMap } from "@/types";
 import CommentCards from "@/components/CommentsCards";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import { RootState } from "@/lib/store/Reducer/store";
 
 export default function Text() {
-  const textData: TextDataMap = useSelector((state: any) => state.TextReducer);
+  const textData: TextDataMap = useSelector(
+    (state: RootState) => state.TextReducer
+  );
   console.log(textData);
   return (
     <>

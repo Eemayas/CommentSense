@@ -1,15 +1,22 @@
 /** @format */
 
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { Pagination, Button, Divider } from "@nextui-org/react";
+import React, { useState, useEffect, useRef } from "react";
+import { Pagination, Divider } from "@nextui-org/react";
 import { CommentData, CommentDataPaginationState, SearchPrompt } from "@/types";
 import CommentCards from "./CommentsCards";
 import { motion } from "framer-motion";
 import { staggerContainer } from "@/lib/utils/motion";
 import { scrollToSection } from "@/lib/action/ScrollFunctionalities";
 import { useDispatch, useSelector } from "react-redux";
-// import { ADD_COMMENT_DATA_SUCCESS } from "@/lib/store/Reducer/constant";
+import {
+  ADD_COMMENT_DATA_PAGINATION,
+  ADD_COMMENT_DATA_SUCCESS,
+  IS_SHOW_SPINNER,
+} from "@/lib/store/Reducer/constant";
+import { AxiosResponse } from "axios";
+import { getCommentsAnalysisPagination } from "@/app/constants/apiEndpints";
+import { RootState } from "@/lib/store/Reducer/store";
 
 const pageSize = 12; // Number of comments to display per page
 type Props = {
@@ -18,16 +25,18 @@ type Props = {
 const CommentSection = ({ datassss }: Props) => {
   const dispatch = useDispatch();
   const commentDatas: CommentData[] = useSelector(
-    (state: any) => state.CommentDataReducer
+    (state: RootState) => state.CommentDataReducer
   );
   const searchPrompt: SearchPrompt = useSelector(
-    (state: any) => state.SearchPromptReducer
+    (state: RootState) => state.SearchPromptReducer
   );
   const commentDataPagination: CommentDataPaginationState = useSelector(
-    (state: any) => state.CommentDataPaginationReducer
+    (state: RootState) => state.CommentDataPaginationReducer
   );
-  console.log(commentDataPagination);
-  const searchLink = useSelector((state: any) => state.YoutubeLinkReducer);
+  const searchLink = useSelector(
+    (state: RootState) => state.YoutubeLinkReducer
+  );
+  const baseUrl = useSelector((state: RootState) => state.BaseUrlReducer);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedComments, setDisplayedComments] = useState([
     {
@@ -127,7 +136,7 @@ const CommentSection = ({ datassss }: Props) => {
                 try {
                   const response: AxiosResponse<any, any> =
                     await getCommentsAnalysisPagination({
-                      baseUrl: BASEURL,
+                      baseUrl: baseUrl,
                       params: {
                         pageNumber: e.toString(),
                       },
@@ -172,23 +181,6 @@ const CommentSection = ({ datassss }: Props) => {
       </motion.section>{" "}
     </>
   );
-};
-
-import React from "react";
-import {
-  ADD_COMMENT_DATA_PAGINATION,
-  ADD_COMMENT_DATA_SUCCESS,
-  IS_SHOW_SPINNER,
-  RESET_COMMENT_DATA_SUCCESS,
-} from "@/lib/store/Reducer/constant";
-import axios, { AxiosResponse } from "axios";
-import {
-  BASEURL,
-  getCommentsAnalysisPagination,
-} from "@/app/constants/apiEndpints";
-
-export const VideoSection = () => {
-  return <div>VideoSection</div>;
 };
 
 export default CommentSection;

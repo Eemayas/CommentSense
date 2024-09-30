@@ -16,13 +16,13 @@ import {
   SEARCH_PROMPT_EDIT,
   YOUTUBE_LINK,
 } from "@/lib/store/Reducer/constant";
-import { CommentData } from "@/types";
-import { BASEURL, getCommentsAnalysis } from "@/app/constants/apiEndpints";
+import { getCommentsAnalysis } from "@/app/constants/apiEndpints";
 import EndpointSetup from "./EndpointSetup";
+import { RootState } from "@/lib/store/Reducer/store";
 
 const Searchbar = () => {
   // const commentDatas: CommentData[] = useSelector(
-  //   (state: any) => state.CommentDataReducer
+  //   (state: RootState) => state.CommentDataReducer
   // );
   const modelOptions = [
     {
@@ -93,6 +93,8 @@ const Searchbar = () => {
     return false;
   };
 
+  const baseUrl = useSelector((state: RootState) => state.BaseUrlReducer);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     var match = comment.match(/\d+/);
@@ -139,7 +141,7 @@ const Searchbar = () => {
     });
     try {
       const response = await getCommentsAnalysis({
-        baseUrl: BASEURL,
+        baseUrl: baseUrl,
         config: {
           params: {
             youtubeLink: youtubeLink,
