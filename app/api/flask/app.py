@@ -9,7 +9,7 @@ from flask import Flask, request, jsonify
 
 import global_variables
 
-from constants import commentCountPerPage, file_ids
+from constants import comment_count_per_page, file_ids
 
 from Analysis.LSTM import (
     get_Comment_Analysis_LSTM,
@@ -67,13 +67,13 @@ def comment_scrape_endpoint_main():
 @app.route("/get_comments_analysis", methods=["GET"])
 def get_comments_Analysis():
     # Fetch parameters from request args
-    global_variables.model = request.args.get("model")
+    global_variables.global_selected_model = request.args.get("model")
     pageNumber = request.args.get("pageNumber")
     youtube_link = request.args.get("youtubeLink")
     comment = request.args.get("comment")
 
     # Check for missing or empty parameters
-    if not global_variables.model:
+    if not global_variables.global_selected_model:
         return jsonify({"error": "Model parameter is required"}), 400
     if not pageNumber:
         return jsonify({"error": "PageNumber parameter is required"}), 400
@@ -101,13 +101,13 @@ def get_comments_Analysis():
             500,
         )
 
-    sliced_comments = comments[:commentCountPerPage]
+    sliced_comments = comments[:comment_count_per_page]
 
-    if global_variables.model == "LSTM":
+    if global_variables.global_selected_model == "LSTM":
         return get_Comment_Analysis_LSTM(comments=sliced_comments)
-    if global_variables.model == "RNN":
+    if global_variables.global_selected_model == "RNN":
         return get_Comment_Analysis_RNN(comments=sliced_comments)
-    if global_variables.model == "Roberta":
+    if global_variables.global_selected_model == "Roberta":
         return get_Comment_Analysis_Rob(comments=sliced_comments)
     else:
         return get_Comment_Analysis_GRU(comments=sliced_comments)
@@ -120,7 +120,7 @@ def get_comments_Analysis_pagination():
     if not page_number:
         return jsonify({"error": "page_number parameter is required"}), 400
 
-    if not global_variables.comment_list:
+    if not global_variables.global_comment_list:
         video_id = YouTube(youtube_link).video_id
         comments = get_comments(
             video_id=video_id,
@@ -138,12 +138,12 @@ def get_comments_Analysis_pagination():
                 500,
             )
 
-    print(f"\nCurrently analyzing model: {global_variables.model}")
-    if global_variables.model == "LSTM":
+    print(f"\nCurrently analyzing model: {global_variables.global_selected_model}")
+    if global_variables.global_selected_model == "LSTM":
         return get_Comment_Analysis_pagination_LSTM(page_number)
-    if global_variables.model == "RNN":
+    if global_variables.global_selected_model == "RNN":
         return get_Comment_Analysis_pagination_RNN(page_number)
-    if global_variables.model == "Roberta":
+    if global_variables.global_selected_model == "Roberta":
         return get_Comment_Analysis_pagination_Rob(page_number)
     else:
         return get_Comment_Analysis_pagination_GRU(page_number)
@@ -168,25 +168,25 @@ if __name__ == "__main__":
 
     model_Roberta, tokenizer_Roberta = load_roberta_model()
 
-    global_variables.model_Roberta = model_Roberta
-    global_variables.tokenizer_Roberta = tokenizer_Roberta
+    global_variables.global_model_Roberta = model_Roberta
+    global_variables.global_tokenizer_Roberta = tokenizer_Roberta
 
-    global_variables.LSTM = load_model(
+    global_variables.global_model_LSTM = load_model(
         "app/api/flask/downloaded_files/LSTM_sentimentmodel.h5"
     )
-    global_variables.RNN = load_model(
+    global_variables.global_model_RNN = load_model(
         "app/api/flask/downloaded_files/RNN_sentimentmodel.h5"
     )
-    global_variables.GRU = load_model(
+    global_variables.global_model_GRU = load_model(
         "app/api/flask/downloaded_files/GRU_sentimentmodel.h5"
     )
-    global_variables.tokenizer_LSTM = Tokenizer()
+    global_variables.global_tokenizer_LSTM = Tokenizer()
     with open(
         "app/api/flask/downloaded_files/LSTMtokenizer.pkl", "rb"
     ) as tokenizer_file:
         tokenizer_LSTM = pickle.load(tokenizer_file)
 
-    global_variables.tokenizer_RNN = Tokenizer()
+    global_variables.global_tokenizer_RNN = Tokenizer()
     with open(
         "app/api/flask/downloaded_files/RNNtokenizer.pkl", "rb"
     ) as tokenizer_file_RNN:

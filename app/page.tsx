@@ -1,3 +1,5 @@
+/** @format */
+
 // "use client";
 import { Divider } from "@nextui-org/react";
 

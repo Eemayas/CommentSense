@@ -3,7 +3,7 @@ from googleapiclient.discovery import build
 from apis import YOUTUBE_API
 import global_variables
 from utils.utils import filter_english_comments
-from constants import commentCountPerPage
+from constants import comment_count_per_page
 
 # Initialize the YouTube API service
 youtube = build("youtube", "v3", developerKey=YOUTUBE_API)
@@ -24,7 +24,7 @@ def get_comments(video_id, page_count_start, max_results=1000, comments_count=10
     """
     print(f"Scraping comment from the video ID :{video_id} .........\n")
     try:
-        global_variables.comment_list = []
+        global_variables.global_comment_list = []
         page_token = None
         page_count = page_count_start
 
@@ -47,12 +47,12 @@ def get_comments(video_id, page_count_start, max_results=1000, comments_count=10
                 new_comment = filter_english_comments(new_comment)
 
                 if new_comment and new_comment not in ["", "."]:
-                    global_variables.comment_list.append(new_comment)
+                    global_variables.global_comment_list.append(new_comment)
 
             # Handle pagination
             if (
                 "nextPageToken" in result
-                and len(global_variables.comment_list) < comments_count
+                and len(global_variables.global_comment_list) < comments_count
             ):
                 page_token = result["nextPageToken"]
                 page_count += 1
@@ -61,9 +61,9 @@ def get_comments(video_id, page_count_start, max_results=1000, comments_count=10
                 break
 
         print(
-            f"Sucessfully scraped comment from the video ID :{video_id} ........\nRetrieved {len(global_variables.comment_list)} comments"
+            f"Sucessfully scraped comment from the video ID :{video_id} ........\nRetrieved {len(global_variables.global_comment_list)} comments"
         )
-        return global_variables.comment_list
+        return global_variables.global_comment_list
 
     except Exception as e:
         print(
@@ -89,18 +89,19 @@ def get_certain_comments(comment_list: list, page_number: int):
         )
         return {"error": "(Get Certain Comments) No availabe scrapped comments"}
     try:
-        print(
-            "\nTotal available scraped comments "
-            + str(len(comment_list))
-        )
+        print("\nTotal available scraped comments " + str(len(comment_list)))
         partition_comment = comment_list[
-            (page_number - 1) * commentCountPerPage : page_number * commentCountPerPage
+            (page_number - 1)
+            * comment_count_per_page : page_number
+            * comment_count_per_page
         ]
         print(
             f"Sucessfully partition comment  ........\nPartition {len(partition_comment)} comments"
         )
         return comment_list[
-            (page_number - 1) * commentCountPerPage : page_number * commentCountPerPage
+            (page_number - 1)
+            * comment_count_per_page : page_number
+            * comment_count_per_page
         ]
     except Exception as e:
         print(f"An error occurred while partitioning comment: {e}")

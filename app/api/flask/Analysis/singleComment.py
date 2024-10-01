@@ -22,7 +22,7 @@ def single_comment_analysis():
     # Retrieve the comment from query parameters
     comment = request.args.get("text")
     initComment = comment  # Preserve original comment for Roberta
-    print(f"Sentiment  Analysis of : {comment}\n")
+    print(f"Sentiment  Analysis of : {str(comment)}\n")
 
     # Handle the case where no comment is provided
     if comment is None:
@@ -64,23 +64,32 @@ def single_comment_analysis():
     else:
         # LSTM prediction
         type_LSTM, scores_LSTM = run_model_prediction(
-            global_variables.tokenizer_LSTM, global_variables.LSTM, comment, maxlen=50
+            global_variables.global_tokenizer_LSTM,
+            global_variables.global_model_LSTM,
+            comment,
+            maxlen=50,
         )
 
         # GRU prediction
         type_GRU, scores_GRU = run_model_prediction(
-            global_variables.tokenizer_LSTM, global_variables.GRU, comment, maxlen=50
+            global_variables.global_tokenizer_LSTM,
+            global_variables.global_model_GRU,
+            comment,
+            maxlen=50,
         )
 
         # RNN prediction
         type_RNN, scores_RNN = run_model_prediction(
-            global_variables.tokenizer_RNN, global_variables.RNN, comment, maxlen=100
+            global_variables.global_tokenizer_RNN,
+            global_variables.global_model_RNN,
+            comment,
+            maxlen=100,
         )
 
         # Roberta prediction
         type_roberta, scores_roberta = run_roberta_prediction(
-            global_variables.tokenizer_Roberta,
-            global_variables.model_Roberta,
+            global_variables.global_tokenizer_Roberta,
+            global_variables.global_model_Roberta,
             comment_rob,
         )
 

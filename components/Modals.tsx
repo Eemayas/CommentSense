@@ -249,7 +249,6 @@ export const ErrorModal = () => {
 
   const dispatch = useDispatch();
   const modalInfos = useSelector((state: RootState) => state.ModalReducer);
-  // console.log(modalInfos.errorModal.isShow);
   return (
     <>
       <div
@@ -324,10 +323,7 @@ export const BaseUrlEntryModal = () => {
       type: IS_SHOW_URL_ENTRY,
       payload: false,
     });
-    // dispatch(setBaseUrl( userInput));
-    // dispatch(showUrlQuery(false));
   };
-  console.log(modalInfos);
 
   return (
     <>

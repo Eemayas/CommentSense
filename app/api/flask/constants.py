@@ -1,6 +1,4 @@
-
-commentCountPerPage: int = 12
-
+comment_count_per_page: int = 12
 
 # Dictionary containing filenames and their corresponding Google Drive file IDs
 file_ids = {

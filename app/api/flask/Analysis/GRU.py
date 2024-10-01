@@ -38,8 +38,8 @@ def get_Comment_Analysis_GRU(comments: list):
             if comment and comment != "" and comment != ".":
                 # Call the run_model_prediction function
                 sentiment_type, scores = run_model_prediction(
-                    global_variables.tokenizer_LSTM,
-                    global_variables.GRU,
+                    global_variables.global_tokenizer_LSTM,
+                    global_variables.global_model_GRU,
                     comment,
                     maxlen=100,
                 )
@@ -80,7 +80,7 @@ def get_Comment_Analysis_pagination_GRU(page_number):
         page_number = int(page_number)
         # Fetch paginated comments
         comments = get_certain_comments(
-            comment_list=global_variables.comment_list, page_number=page_number
+            comment_list=global_variables.global_comment_list, page_number=page_number
         )
 
         if comments is None or len(comments) == 0:
@@ -101,8 +101,8 @@ def get_Comment_Analysis_pagination_GRU(page_number):
             if comment and comment != "" and comment != ".":
                 # Call the run_model_prediction function
                 sentiment_type, scores = run_model_prediction(
-                    global_variables.tokenizer_LSTM,
-                    global_variables.GRU,
+                    global_variables.global_tokenizer_LSTM,
+                    global_variables.global_model_GRU,
                     comment,
                     maxlen=100,
                 )

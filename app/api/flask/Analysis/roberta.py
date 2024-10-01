@@ -37,8 +37,8 @@ def get_Comment_Analysis_Rob(comments: list):
 
             if comment and comment != "" and comment != ".":
                 sentiment_type, scores = run_roberta_prediction(
-                    global_variables.tokenizer_Roberta,
-                    global_variables.model_Roberta,
+                    global_variables.global_tokenizer_Roberta,
+                    global_variables.global_model_Roberta,
                     comment,
                 )
 
@@ -82,7 +82,7 @@ def get_Comment_Analysis_pagination_Rob(page_number):
 
         # Fetch paginated comments
         comments = get_certain_comments(
-            comment_list=global_variables.comment_list, page_number=page_number
+            comment_list=global_variables.global_comment_list, page_number=page_number
         )
 
         if comments is None or len(comments) == 0:
@@ -105,8 +105,8 @@ def get_Comment_Analysis_pagination_Rob(page_number):
 
             if comment != "" and comment != ".":
                 sentiment_type, scores = run_roberta_prediction(
-                    global_variables.tokenizer_Roberta,
-                    global_variables.model_Roberta,
+                    global_variables.global_tokenizer_Roberta,
+                    global_variables.global_model_Roberta,
                     comment,
                 )
 
