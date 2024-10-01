@@ -22,6 +22,7 @@ def load_roberta_model(task="sentiment"):
             MODEL, local_files_only=True
         )
     except:
+        model_Roberta, tokenizer_Roberta = None, None
         # If local files are not available, download the tokenizer and model from Hugging Face
         tokenizer = AutoTokenizer.from_pretrained(MODEL)
 
