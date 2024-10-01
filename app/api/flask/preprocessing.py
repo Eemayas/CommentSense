@@ -6,9 +6,6 @@ from nltk.stem import PorterStemmer
 from constants import contractions, words_to_remove
 from utils.utils import filter_english_comments, remove_emojis, remove_tags
 
-nltk.download("punkt")
-nltk.download("stopwords")
-
 
 def preprocessing(text):
     text = str(text)

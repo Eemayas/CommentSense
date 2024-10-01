@@ -2,7 +2,7 @@ from flask import request, jsonify
 from preprocessing import preprocessing_RNN
 import global_variables
 
-from Analysis.roberta import preprocess_Roberta, tokenizer_Roberta, model_Roberta
+from Analysis.roberta import preprocess_Roberta
 
 from utils.prediction_utils import run_model_prediction, run_roberta_prediction
 from utils.utils import filter_english_comments, remove_emojis
@@ -79,7 +79,9 @@ def single_comment_analysis():
 
         # Roberta prediction
         type_roberta, scores_roberta = run_roberta_prediction(
-            tokenizer_Roberta, model_Roberta, comment_rob
+            global_variables.tokenizer_Roberta,
+            global_variables.model_Roberta,
+            comment_rob,
         )
 
         # Construct the JSON response containing the results from all models

@@ -1,4 +1,5 @@
 import re
+import nltk
 import pickle
 from pytube import YouTube
 from flask_cors import CORS
@@ -26,6 +27,7 @@ from Analysis.RNN import get_Comment_Analysis_RNN, get_Comment_Analysis_paginati
 from Analysis.singleComment import single_comment_analysis
 
 from utils.comment_scrapping import get_comments
+from utils.load_roberta_model import load_roberta_model
 from utils.model_downloader import download_model_tokenizer
 
 
@@ -158,7 +160,17 @@ def home_endpoint():
 
 
 if __name__ == "__main__":
+    nltk.download("punkt")
+    nltk.download("punkt")
+    nltk.download("wordnet")
+
     download_model_tokenizer(file_ids)
+
+    model_Roberta, tokenizer_Roberta = load_roberta_model()
+
+    global_variables.model_Roberta = model_Roberta
+    global_variables.tokenizer_Roberta = tokenizer_Roberta
+
     global_variables.LSTM = load_model(
         "app/api/flask/downloaded_files/LSTM_sentimentmodel.h5"
     )
