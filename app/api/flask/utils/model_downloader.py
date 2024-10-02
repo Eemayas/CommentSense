@@ -24,6 +24,15 @@ class Download:
 
 
 def download_model_tokenizer(file_urls: dict[str, str]):
+    """
+    Download model and tokenizer files from Google Drive.
+
+    Arguments:
+        file_urls {dict[str, str]} -- Dictionary containing filenames as keys and their corresponding Google Drive URLs as values.
+
+    Returns:
+        None
+    """
     # Instantiate the Download class
     downloader = Download()
 

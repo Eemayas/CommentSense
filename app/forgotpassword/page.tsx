@@ -1,14 +1,12 @@
 "use client";
 import { useState } from "react";
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { EmailField } from "@/components/TextField";
-import {
-  IS_SHOW_ERROR_MODAL,
-  IS_SHOW_SUCESS_MODAL,
-} from "@/lib/store/Reducer/constant";
+import { IS_SHOW_ERROR_MODAL } from "@/lib/store/Reducer/constant";
+import AuthFormWrapper from "@/components/AuthFormBox";
 
 export default function ForgotPassword() {
   const router = useRouter();
@@ -33,86 +31,42 @@ export default function ForgotPassword() {
     });
   };
   return (
-    <main>
-      <div className="h-screen items-center justify-center flex  ">
-        <div className=" rounded-[16px] bg-slate-800 border border-slate-400 shadow-lg backdrop-blur-sm bg-opacity-30 p-8 mx-auto">
-          {" "}
-          <div className="bg-gray-100 rounded-b-lg py-12 px-4 lg:px-24">
-            <p className="text-center text-sm text-gray-500 font-bold">
-              {" "}
-              Forgot Password?
-            </p>
-            <form className="mt-6" onSubmit={handleForgotPassword}>
-              <div className="flex flex-col gap-2">
-                <EmailField
-                  isEmailError={isEmailError}
-                  email={email}
-                  setEmail={setEmail}
-                />
-              </div>
-
-              <div className="flex items-center justify-center mt-4">
-                <Button
-                  type="submit"
-                  radius="full"
-                  className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg px-10"
-                  isLoading={isLoading}
-                >
-                  {isLoading ? "Reseting password..." : "Reset Password"}
-                </Button>
-              </div>
-            </form>
-            <hr className="mt-2 w-full h-1 bg-gray-500"></hr>
-            <p className="text-center text-sm text-gray-500 font-medium mt-12 ">
-              Remember your password?
-              <Link
-                className="text-blue-800 pl-1 underline font-bold"
-                href={"./login"}
-              >
-                LogIn here
-              </Link>
-            </p>
+    <AuthFormWrapper>
+      <div className="rounded-lg bg-white px-6 py-12 md:px-16">
+        <p className="text-center text-sm font-bold text-gray-500">
+          Forgot Password?
+        </p>
+        <form className="mt-6" onSubmit={handleForgotPassword}>
+          <div className="flex flex-col gap-2">
+            <EmailField
+              isEmailError={isEmailError}
+              email={email}
+              setEmail={setEmail}
+            />
           </div>
-        </div>
+
+          <div className="mt-4 flex items-center justify-center">
+            <Button
+              type="submit"
+              radius="full"
+              className="bg-gradient-to-tr from-pink-500 to-yellow-500 px-10 text-white shadow-lg"
+              isLoading={isLoading}
+            >
+              {isLoading ? "Reseting password..." : "Reset Password"}
+            </Button>
+          </div>
+        </form>
+        <hr className="mt-2 h-1 w-full bg-gray-500"></hr>
+        <p className="mt-12 text-center text-sm font-medium text-gray-500">
+          Remember your password?
+          <Link
+            className="pl-1 font-bold text-blue-800 underline"
+            href={"./login"}
+          >
+            LogIn here
+          </Link>
+        </p>
       </div>
-    </main>
+    </AuthFormWrapper>
   );
 }
-
-// // Component definition
-// function MyModal() {
-//   const dispatch = useDispatch();
-//   // State variables to manage the modal visibility
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-
-//   // Function to toggle modal visibility
-//   const toggleModal = () => {
-//     console.log("Toggle modal visibility");
-//     dispatch({
-//       type: IS_SHOW_SUCESS_MODAL,
-//       payload: {
-//         isShow: true,
-//         title: "Sucess",
-//         description:
-//           "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus,consequatur ",
-//       },
-//     });
-//     setIsModalOpen(!isModalOpen);
-//   };
-
-//   return (
-//     <>
-//       <div className="w-full min-h-screen flex justify-center items-center bg-black">
-//         <p
-//           id="modal-switch"
-//           onClick={toggleModal}
-//           className="text-[10vw] bg-gradient-to-r from-indigo-500 via-purple-500 text-transparent bg-clip-text to-pink-500 font-bold cursor-pointer"
-//         >
-//           Click Me
-//         </p>
-//       </div>
-
-//       <SucessModal />
-//     </>
-//   );
-// }

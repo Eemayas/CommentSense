@@ -20,7 +20,10 @@ const EndpointSetup = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {baseUrl}
+          {baseUrl}{" "}
+          {baseUrl == "http://127.0.0.1:5000"
+            ? "(Localhost)"
+            : "(Collab-hosted)"}
         </a>
         . Wrong Url?{" "}
         <a
@@ -36,7 +39,7 @@ const EndpointSetup = () => {
           Change it
         </a>
       </div>
-      <div className="text-sm ">
+      <div className="text-sm">
         Run the Flask Server either in local by cloning repo from{" "}
         <a
           href={"https://github.com/Eemayas/CommentSense"}

@@ -1,3 +1,5 @@
+/** @format */
+
 export interface Buttontype {
   color:
     | "primary"

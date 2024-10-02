@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#B11E1E", // Replace with your primary color hex code
+        primary: "#B11E1E", 
         secondary: "#A61950", // Replace with your secondary color hex code
       },
       backgroundImage: {

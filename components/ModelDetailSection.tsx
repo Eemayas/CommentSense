@@ -1,5 +1,7 @@
+/** @format */
+
 "use client";
-import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Card, CardHeader } from "@nextui-org/react";
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -49,9 +51,8 @@ const ModelDetailSection = () => {
   ];
 
   return (
-    <div className="max-w-[350px] py-4 w-full bg-[#f2f4f7bd] rounded-[30px] mx-auto my-auto">
+    <div className="mx-auto my-auto w-full max-w-[350px] rounded-[30px] bg-[#f2f4f7bd] py-4">
       <Carousel
-        className=""
         showThumbs={false}
         autoPlay
         infiniteLoop
@@ -63,16 +64,15 @@ const ModelDetailSection = () => {
         {modelData.map((model, index) => (
           <Card
             key={index}
-            className={`
-           max-w-[300px]  border-none bg-gradient-to-br from-violet-500 to-yellow-400 mx-auto `}
+            className="mx-auto max-w-[300px] border-none bg-gradient-to-br from-violet-500 to-yellow-400"
             style={{ transition: "opacity 0.05s, transform 0.5s" }}
           >
             <CardHeader>
-              <h1 className="mt-1 text-xl font-bold  text-gray-900">
+              <h1 className="mt-1 text-xl font-bold text-gray-900">
                 {model.model}
               </h1>
             </CardHeader>
-            <div className="w-[280px] mx-auto">
+            <div className="mx-auto w-[280px]">
               <div className="flex justify-between">
                 <p>Accuracy</p>
                 <div className="flex-grow border-b border-dotted border-black" />
@@ -84,6 +84,7 @@ const ModelDetailSection = () => {
                 <div className="flex-grow border-b border-dotted border-black"></div>
                 <p>{model.precision}</p>
               </div>
+
               <div className="flex justify-between">
                 <p>Recall</p>
                 <div className="flex-grow border-b border-dotted border-black"></div>

@@ -11,16 +11,16 @@ import CommentCards from "@/components/CommentsCards";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { RootState } from "@/lib/store/Reducer/store";
+import EndpointSetup from "@/components/EndpointSetup";
 
 export default function Text() {
   const textData: TextDataMap = useSelector(
-    (state: RootState) => state.TextReducer
+    (state: RootState) => state.TextReducer,
   );
-  console.log(textData);
   return (
     <>
       <Navbar />
-      <section className=" max-xl:flex-col px-6 flex gap-5 md:px-5 py-8">
+      <section className="flex gap-5 px-6 py-8 max-xl:flex-col md:px-5">
         <div className="flex flex-col justify-center">
           <p className="small-text">
             Smart Sentiment Analysis Start Here
@@ -35,27 +35,27 @@ export default function Text() {
             Unleash the Power of
             <span className="text-primary"> CommentSense</span>
           </h1>
-          <p className="mt-6 ">
+          <p className="mt-6">
             Powerful, self-serve product and growth analytics to help you
             convert, engage, and retain more.
           </p>
           <p>
             Try it out with
             <Link
-              className="text-blue-500 font-bold underline"
+              className="font-bold text-blue-500 underline"
               href={"./predict"}
             >
               {" "}
               Single Text{" "}
             </Link>
             Link or instead try for{" "}
-            <Link className="text-blue-500 font-bold underline" href={"./"}>
-              {" "}
-              Youtube{" "}
+            <Link className="font-bold text-blue-500 underline" href={"./"}>
+              Youtube
             </Link>
           </p>
 
           <Textbar />
+          <EndpointSetup />
         </div>
       </section>
       <Divider className="my-4" />
@@ -74,7 +74,7 @@ export default function Text() {
               />
             );
           }
-          return null; // or an empty fragment <>
+          return null;
         })}
       </div>
     </>

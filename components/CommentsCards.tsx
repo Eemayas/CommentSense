@@ -34,28 +34,25 @@ const CommentCards = ({
           content: "text-red-400 text-small font-semibold",
         }
       : type === 4
-      ? {
-          base: "border-1 border-white/6=80 bg-white",
-          content: "text-green-400 text-small font-semibold",
-        }
-      : {
-          base: "border-1 border-white/6=80 bg-white",
-          content: "text-yellow-400 text-small font-semibold",
-        };
+        ? {
+            base: "border-1 border-white/6=80 bg-white",
+            content: "text-green-400 text-small font-semibold",
+          }
+        : {
+            base: "border-1 border-white/6=80 bg-white",
+            content: "text-yellow-400 text-small font-semibold",
+          };
   const CardColor =
     type == 0 ? "to-red-400" : type === 4 ? "to-green-400" : "to-yellow-400";
   return (
     <motion.div variants={fadeIn("right", "spring", 0.25 * index, 0.55)}>
       <Card
-        className={`
-      w-[300px] h-[450px] border-none bg-gradient-to-br from-violet-500
-      ${CardColor}
-         gap-2`}
+        className={`h-[450px] w-[300px] border-none bg-gradient-to-br from-violet-500 ${CardColor} gap-2`}
         style={{ transition: "opacity 0.05s, transform 0.5s" }}
       >
-        <CardBody className="justify-center items-center h-[410px]">
+        <CardBody className="h-[410px] items-center justify-center">
           <div className="flex flex-row gap-3">
-            <div className="justify-center items-center flex flex-col gap-2">
+            <div className="flex flex-col items-center justify-center gap-2">
               <CircularProgress
                 aria-label="true"
                 classNames={{
@@ -68,9 +65,9 @@ const CommentCards = ({
                 strokeWidth={4}
                 showValueLabel={true}
               />
-              <p className=" text-gray-300 text-xs">Positive</p>
+              <p className="text-xs text-gray-300">Positive</p>
             </div>
-            <div className="justify-center items-center flex flex-col gap-2">
+            <div className="flex flex-col items-center justify-center gap-2">
               <CircularProgress
                 aria-label="true"
                 classNames={{
@@ -83,9 +80,9 @@ const CommentCards = ({
                 strokeWidth={4}
                 showValueLabel={true}
               />
-              <p className=" text-gray-300 text-xs">Neutral</p>
+              <p className="text-xs text-gray-300">Neutral</p>
             </div>
-            <div className=" justify-center items-center flex flex-col gap-2">
+            <div className="flex flex-col items-center justify-center gap-2">
               <CircularProgress
                 aria-label="true"
                 classNames={{
@@ -98,19 +95,19 @@ const CommentCards = ({
                 strokeWidth={4}
                 showValueLabel={true}
               />
-              <p className="text-gray-300 text-xs">Negative</p>
+              <p className="text-xs text-gray-300">Negative</p>
             </div>
           </div>
 
           <Divider orientation="horizontal" />
-          <ScrollShadow className="w-full h-[90%]">
+          <ScrollShadow className="h-[90%] w-full">
             <p className="ml-2 w-[90%] text-center font-medium text-white sm:text-xl">
               {comment}
             </p>
           </ScrollShadow>
         </CardBody>
         <Divider orientation="horizontal" className="my-1" />
-        <CardFooter className=" justify-center items-center pt-0">
+        <CardFooter className="items-center justify-center pt-0">
           <Chip size="lg" classNames={ChipClassNames} variant="shadow">
             {type == 0 ? "Negative" : type == 2 ? "Neutral" : "Postive"}
           </Chip>

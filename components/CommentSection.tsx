@@ -19,22 +19,20 @@ import { getCommentsAnalysisPagination } from "@/app/constants/apiEndpints";
 import { RootState } from "@/lib/store/Reducer/store";
 
 const pageSize = 12; // Number of comments to display per page
-type Props = {
-  datassss: CommentData[];
-};
-const CommentSection = ({ datassss }: Props) => {
+
+const CommentAnalysisSection = () => {
   const dispatch = useDispatch();
   const commentDatas: CommentData[] = useSelector(
-    (state: RootState) => state.CommentDataReducer
+    (state: RootState) => state.CommentDataReducer,
   );
   const searchPrompt: SearchPrompt = useSelector(
-    (state: RootState) => state.SearchPromptReducer
+    (state: RootState) => state.SearchPromptReducer,
   );
   const commentDataPagination: CommentDataPaginationState = useSelector(
-    (state: RootState) => state.CommentDataPaginationReducer
+    (state: RootState) => state.CommentDataPaginationReducer,
   );
   const searchLink = useSelector(
-    (state: RootState) => state.YoutubeLinkReducer
+    (state: RootState) => state.YoutubeLinkReducer,
   );
   const baseUrl = useSelector((state: RootState) => state.BaseUrlReducer);
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,10 +50,6 @@ const CommentSection = ({ datassss }: Props) => {
   useEffect(() => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    // const commentsToDisplay: CommentData[] = commentDatas.slice(
-    //   startIndex,
-    //   endIndex
-    // )// setDisplayedComments(commentsToDisplay);
     if (commentDataPagination[currentPage] != undefined) {
       const commentsToDisplay: CommentData[] =
         commentDataPagination[currentPage];
@@ -66,38 +60,23 @@ const CommentSection = ({ datassss }: Props) => {
 
     console.log(displayedComments);
   }, [currentPage, commentDatas, commentDataPagination]);
+
   if (!searchLink && commentDatas.length === 0) return;
+
   return (
     <>
-      <section id="VideoSection">
-        <h1 className=" mt-4 text-5xl leading-[72px] font-bold tracking-[-1.2px] text-gray-900 mb-8">
-          Video
-        </h1>
-        <div className=" flex-1 aspect-video ">
-          <iframe
-            className="w-full h-full rounded-lg"
-            src={`https://www.youtube.com/embed/${searchLink}`}
-            // width="100%"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </section>
       <motion.section
         id="CommentSection"
         ref={sectionRef}
-        // initial="hidden"
         whileInView={"show"}
         variants={staggerContainer()}
         viewport={{ once: true, amount: 0.1 }}
-        className={`px-6 md:px-20 py-5 items-center `}
+        className={`items-center px-6 py-5 md:px-20`}
       >
-        <h1 className=" mt-4 text-5xl leading-[72px] font-bold tracking-[-1.2px] text-gray-900 mb-8">
-          Comments
+        <h1 className="mb-8 mt-4 text-5xl font-bold leading-[72px] tracking-[-1.2px] text-gray-900">
+          Comments Analysis
         </h1>
-        <div className="flex flex-wrap justify-center items-center mx-auto gap-5  ">
+        <div className="mx-auto flex flex-wrap items-center justify-center gap-5">
           {displayedComments.map((comment, index) => (
             <CommentCards
               index={index}
@@ -111,7 +90,7 @@ const CommentSection = ({ datassss }: Props) => {
           ))}
         </div>
         <Divider className="mt-5" />
-        <div className="flex flex-row  mt-5 justify-center">
+        <div className="mt-5 flex flex-row justify-center">
           <Pagination
             showControls
             total={
@@ -183,4 +162,4 @@ const CommentSection = ({ datassss }: Props) => {
   );
 };
 
-export default CommentSection;
+export default CommentAnalysisSection;
