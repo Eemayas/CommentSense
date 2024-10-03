@@ -105,6 +105,7 @@ const CommentAnalysisSection = () => {
         <div className="mt-5 flex flex-row justify-center">
           <Pagination
             showControls
+            siblings={0}
             total={
               searchPrompt.comment % pageSize === 0
                 ? searchPrompt.comment / pageSize

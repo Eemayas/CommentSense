@@ -18,7 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 const TextbarEntry = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const baseUrl = useSelector((state: RootState) => state.BaseUrlReducer);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -72,15 +71,15 @@ const TextbarEntry = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Enter the text for analysis"
-            className="searchbar-input lg:max-w-[80%]"
-            rows={4} // You can adjust the number of rows as needed
+            className="searchbar-input max-w-[56rem] sm:min-w-[40rem]"
+            rows={5}
           />
           <button
             disabled={text === ""}
             type="submit"
             className="searchbar-btn"
           >
-            {isLoading ? "Searching...." : "Search"}
+            Search
           </button>
         </div>
       </form>{" "}

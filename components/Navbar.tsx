@@ -25,7 +25,7 @@ const Navbar = () => {
             Comment<span className="text-primary">Sense</span>
           </p>
         </Link>
-        {/* <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5">
           {navIcons.map((icons) => (
             <Image
               key={icons.alt}
@@ -38,7 +38,7 @@ const Navbar = () => {
             />
           ))}
           <ProfileDropDown />
-        </div> */}
+        </div>
       </nav>
     </header>
   );

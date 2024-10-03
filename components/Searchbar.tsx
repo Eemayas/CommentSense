@@ -20,9 +20,6 @@ import { getCommentsAnalysis } from "@/app/constants/apiEndpints";
 import { RootState } from "@/lib/store/Reducer/store";
 
 const Searchbar = () => {
-  // const commentDatas: CommentData[] = useSelector(
-  //   (state: RootState) => state.CommentDataReducer
-  // );
   const modelOptions = [
     {
       title: "Roberta",
@@ -70,7 +67,6 @@ const Searchbar = () => {
   ];
   const dispatch = useDispatch();
   const [youtubeLink, setYoutubeLink] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [model, setModel] = useState(modelOptions[0].title);
   const [comment, setComment] = useState(commentOptions[0].title);
 
@@ -213,7 +209,7 @@ const Searchbar = () => {
             type="submit"
             className="searchbar-btn"
           >
-            {isLoading ? "Searching...." : "Search"}
+            Search
           </button>
         </div>
         <div className="mt-1 flex flex-col items-center gap-2 sm:flex-row">

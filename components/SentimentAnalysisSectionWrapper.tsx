@@ -9,9 +9,9 @@ const SentimentAnalysisSectionWrapper: React.FC<
   SentimentAnalysisSectionWrapperProps
 > = ({ children, isYoutubeAnalysis }) => {
   return (
-    <section className="flex flex-col justify-center px-6 py-32 md:px-20">
+    <section className="flex flex-col items-center justify-center px-6 py-14 sm:py-32 md:px-20">
       <p className="small-text">Smart Sentiment Analysis Start Here &rarr;</p>
-      <h1 className="head-text">
+      <h1 className="head-text text-center">
         Unleash the Power of
         <span className="text-primary"> CommentSense</span>
       </h1>
