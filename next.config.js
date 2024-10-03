@@ -8,7 +8,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["lh3.googleusercontent.com", "i.pinimg.com"],
+    domains: ["lh3.googleusercontent.com", "i.pinimg.com", "images.pexels.com"],
     // remotePatterns: ["lh3.googleusercontent.com"],
   },
   rewrites: async () => {

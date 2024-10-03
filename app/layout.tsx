@@ -35,9 +35,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
           <AuthProvider>
-            <main className="max-w-10xl mx-auto">
+            <main className="mx-auto max-w-10xl">
               {/* <Navbar /> */}
-
               {children}
               <CustomSpinner />
               <SucessModal />
@@ -45,7 +44,7 @@ export default function RootLayout({
               <BaseUrlEntryModal />
               <Toaster />
             </main>
-          </AuthProvider>{" "}
+          </AuthProvider>
         </ReduxProvider>
       </body>
     </html>

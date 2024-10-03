@@ -31,11 +31,7 @@ export function DropDownButton({
       selectedKey={selectedKeys}
       onSelectionChange={(e) => setSelectedKeys(String(e))}
     >
-      {(options: {
-        title: string;
-
-        description: string;
-      }) => (
+      {(options: { title: string; description: string }) => (
         <AutocompleteItem key={options.title} textValue={options.title}>
           <div className="flex items-center gap-2">
             <div className="flex flex-col">
