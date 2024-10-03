@@ -26,7 +26,7 @@ const UserProfile = () => {
   const imagePickerRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     setIsLoading(true);
     console.log(userDetails);
