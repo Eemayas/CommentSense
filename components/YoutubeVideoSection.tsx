@@ -13,10 +13,8 @@ const YoutubeVideoSection = () => {
 
   return (
     <section id="VideoSection" className="items-center px-6 py-5 md:px-20">
+      <h1 className="head-text">Video</h1>
       <Divider className="my-4" />
-      <h1 className="mb-8 mt-4 text-5xl font-bold leading-[72px] tracking-[-1.2px] text-gray-900">
-        Video
-      </h1>
       <div className="aspect-video flex-1">
         <iframe
           className="h-full w-full rounded-lg"

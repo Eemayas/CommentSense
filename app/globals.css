@@ -23,34 +23,20 @@ html {
   background-repeat: no-repeat;
 }
 body {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; */
   font-family: "Montserrat", sans-serif;
-  /*height: 100vh;
-	margin: -20px 0 50px;*/
 }
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}  */
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
 @layer utilities {
   .btn {
     @apply rounded-[30px] bg-secondary px-4 py-4 text-lg font-semibold text-white hover:bg-opacity-70;
   }
 
   .head-text {
-    @apply mt-4 text-6xl font-bold leading-[72px] tracking-[-1.2px] text-gray-900;
+    @apply mt-4 text-4xl font-bold leading-[48px] tracking-[-1.2px] text-gray-900 sm:text-6xl sm:leading-[72px];
   }
 
   .section-text {

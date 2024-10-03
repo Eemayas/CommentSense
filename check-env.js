@@ -1,17 +1,18 @@
 const shell = require("shelljs");
 
 // Check if the virtual environment exists
-const virtualEnvExists = shell.test("-e", "./env/Scripts/activate");
+const virtualEnvExists = shell.test("-e", "./venv/Scripts/activate");
 
 if (!virtualEnvExists) {
   // If not, create the virtual environment
   console.log("Virtual environment not found. Creating...");
 
   // Adjust the path and Python version as needed
-  shell.exec("python3 -m venv env");
+  shell.exec("python3 -m venv venv");
   console.log("Virtual environment created.");
+  
 } else {
-  shell.exec("\".\\env\\Scripts\\activate\"");
+  shell.exec('".\\venv\\Scripts\\activate"');
 
   console.log("Virtual environment found.");
 }
