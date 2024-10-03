@@ -200,8 +200,8 @@ const Searchbar = () => {
 
   return (
     <>
-      <form className=" flex flex-col gap-4 mt-5 mb-5" onSubmit={handleSubmit}>
-        <div className="flex gap-4  flex-wrap">
+      <form className="mt-5 flex flex-col gap-4" onSubmit={handleSubmit}>
+        <div className="flex flex-wrap gap-4">
           <input
             type="text"
             value={youtubeLink}
@@ -217,10 +217,10 @@ const Searchbar = () => {
             {isLoading ? "Searching...." : "Search"}
           </button>
         </div>
-        <div className="flex items-center gap-2 mt-1 max-h-7 flex-row">
+        <div className="mt-1 flex max-h-7 flex-row items-center gap-2">
           <DropDownButton
             placeholder=" "
-            className="max-w-xs max-h-12"
+            className="max-h-12 max-w-xs"
             label="Model Selection"
             options={modelOptions}
             setSelectedKeys={setModel}
@@ -229,7 +229,7 @@ const Searchbar = () => {
 
           <DropDownButton
             placeholder=" "
-            className="max-w-lg max-h-12"
+            className="max-h-12 max-w-lg"
             label="Comment Count"
             options={commentOptions}
             setSelectedKeys={setComment}
@@ -237,7 +237,6 @@ const Searchbar = () => {
           />
         </div>
       </form>
-      <EndpointSetup />
     </>
   );
 };

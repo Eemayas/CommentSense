@@ -12,8 +12,8 @@ const YoutubeVideoSection = () => {
   if (!searchLink) return;
 
   return (
-    <section id="VideoSection">
-      <Divider className="my-4" />  
+    <section id="VideoSection" className="items-center px-6 py-5 md:px-20">
+      <Divider className="my-4" />
       <h1 className="mb-8 mt-4 text-5xl font-bold leading-[72px] tracking-[-1.2px] text-gray-900">
         Video
       </h1>

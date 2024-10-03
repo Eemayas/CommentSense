@@ -2,8 +2,7 @@
 
 "use client";
 
-import React, { FormEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { singleCommentAnalysis } from "@/app/constants/apiEndpints";
 import {
   ADD_TEXT,
   IS_SHOW_ERROR_MODAL,
@@ -11,14 +10,12 @@ import {
   IS_SHOW_SUCESS_MODAL,
   REMOVE_TEXT,
 } from "@/lib/store/Reducer/constant";
-import { removeComment } from "@/lib/store/Reducer/textReducer";
-import { singleCommentAnalysis } from "@/app/constants/apiEndpints";
 import { RootState } from "@/lib/store/Reducer/store";
+import { removeComment } from "@/lib/store/Reducer/textReducer";
+import { FormEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const Textbar = () => {
-  // const commentDatas: CommentData[] = useSelector(
-  //   (state: RootState) => state.CommentDataReducer
-  // );
+const TextbarEntry = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +39,7 @@ const Textbar = () => {
         config: { params: { text: text } },
       });
 
-      await dispatch({
+      dispatch({
         type: ADD_TEXT,
         payload: response,
       });
@@ -64,15 +61,13 @@ const Textbar = () => {
         },
       });
       console.log("Error fetching data:", error);
-      // console.log("Error fetching data:", error.response?.data);
-      // console.log("Error fetching data:", error.response?.data.error);
     }
   };
 
   return (
     <>
-      <form className=" flex flex-col gap-4 mt-12" onSubmit={handleSubmit}>
-        <div className="flex gap-4  flex-wrap">
+      <form className="mt-5 flex flex-col gap-4" onSubmit={handleSubmit}>
+        <div className="flex flex-wrap gap-4">
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -80,13 +75,6 @@ const Textbar = () => {
             className="searchbar-input lg:max-w-[80%]"
             rows={4} // You can adjust the number of rows as needed
           />
-          {/* <input
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Enter the text for analyis"
-            className="searchbar-input"
-          ></input> */}
           <button
             disabled={text === ""}
             type="submit"
@@ -100,4 +88,4 @@ const Textbar = () => {
   );
 };
 
-export default Textbar;
+export default TextbarEntry;

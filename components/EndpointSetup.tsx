@@ -1,5 +1,5 @@
 /** @format */
-
+"use client";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IS_SHOW_URL_ENTRY } from "@/lib/store/Reducer/constant";
@@ -12,7 +12,7 @@ const EndpointSetup = () => {
 
   return (
     <>
-      <div className="text-sm">
+      <div className="mt-5 text-sm">
         Currently API point set at:{" "}
         <a
           href={baseUrl}

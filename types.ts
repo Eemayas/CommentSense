@@ -61,6 +61,17 @@ export type TextDataEntry = {
   type: number;
 };
 
+export type ModelData = {
+  negative_score: number;
+  neutral_score: number;
+  positive_score: number;
+  type: number;
+};
+
 export type TextDataMap = {
-  [key: string]: TextDataEntry | string;
+  GRU: ModelData;
+  LSTM: ModelData;
+  RNN: ModelData;
+  Roberta: ModelData;
+  comment: string;
 };

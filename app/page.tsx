@@ -11,6 +11,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 import CommentAnalysisSection from "@/components/CommentSection";
 import ModelDetailSection from "@/components/ModelDetailSection";
 import YoutubeVideoSection from "@/components/YoutubeVideoSection";
+import EndpointSetup from "@/components/EndpointSetup";
 
 export default async function Home() {
   return (
@@ -55,10 +56,10 @@ export default async function Home() {
           </p>
 
           <Searchbar />
+          <EndpointSetup />
           <Divider className="my-1 mt-6" />
           <ModelDetailSection />
         </div>
-        {/* <HeroCarousel /> */}
       </section>
 
       <YoutubeVideoSection />
