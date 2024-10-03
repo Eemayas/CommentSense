@@ -17,7 +17,6 @@ import {
   YOUTUBE_LINK,
 } from "@/lib/store/Reducer/constant";
 import { getCommentsAnalysis } from "@/app/constants/apiEndpints";
-import EndpointSetup from "./EndpointSetup";
 import { RootState } from "@/lib/store/Reducer/store";
 
 const Searchbar = () => {
@@ -153,7 +152,7 @@ const Searchbar = () => {
         },
       });
 
-      console.log({ response });
+      // console.log({ response });
       dispatch({
         type: SEARCH_PROMPT_EDIT,
         payload: {
@@ -201,13 +200,13 @@ const Searchbar = () => {
   return (
     <>
       <form className="mt-5 flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-col flex-wrap gap-4 sm:flex-row">
           <input
             type="text"
             value={youtubeLink}
             onChange={(e) => setYoutubeLink(e.target.value)}
             placeholder="Enter YouTube Link"
-            className="searchbar-input"
+            className="searchbar-input max-w-[56rem]"
           ></input>
           <button
             disabled={youtubeLink === ""}
@@ -217,10 +216,10 @@ const Searchbar = () => {
             {isLoading ? "Searching...." : "Search"}
           </button>
         </div>
-        <div className="mt-1 flex max-h-7 flex-row items-center gap-2">
+        <div className="mt-1 flex flex-col items-center gap-2 sm:flex-row">
           <DropDownButton
             placeholder=" "
-            className="max-h-12 max-w-xs"
+            className="max-h-12 max-w-md"
             label="Model Selection"
             options={modelOptions}
             setSelectedKeys={setModel}
@@ -229,7 +228,7 @@ const Searchbar = () => {
 
           <DropDownButton
             placeholder=" "
-            className="max-h-12 max-w-lg"
+            className="max-h-12 max-w-md"
             label="Comment Count"
             options={commentOptions}
             setSelectedKeys={setComment}

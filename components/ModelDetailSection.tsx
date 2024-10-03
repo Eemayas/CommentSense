@@ -51,7 +51,7 @@ const ModelDetailSection = () => {
   ];
 
   return (
-    <div className="mx-auto my-auto w-full max-w-[350px] rounded-[30px] bg-[#f2f4f7bd] py-4">
+    <div className="mx-auto my-auto w-full max-w-[350px] rounded-[30px] bg-[#f2f4f7bd] p-4">
       <Carousel
         showThumbs={false}
         autoPlay
@@ -59,12 +59,12 @@ const ModelDetailSection = () => {
         interval={3000}
         showArrows={false}
         showStatus={false}
-        width={350}
+        className="w-full"
       >
         {modelData.map((model, index) => (
           <Card
             key={index}
-            className="mx-auto max-w-[300px] border-none bg-gradient-to-br from-violet-500 to-yellow-400"
+            className="mx-auto border-none bg-gradient-to-br from-violet-500 to-yellow-400 px-4"
             style={{ transition: "opacity 0.05s, transform 0.5s" }}
           >
             <CardHeader>
@@ -72,7 +72,7 @@ const ModelDetailSection = () => {
                 {model.model}
               </h1>
             </CardHeader>
-            <div className="mx-auto w-[280px]">
+            <div className="mx-auto w-full">
               <div className="flex justify-between">
                 <p>Accuracy</p>
                 <div className="flex-grow border-b border-dotted border-black" />
