@@ -17,7 +17,7 @@ const removeComment = () => ({
 });
 
 // Initial state
-const initialState: TextDataMap = {
+export const textPredictInitialState: TextDataMap = {
   GRU: {
     negative_score: 0,
     neutral_score: 0,
@@ -47,16 +47,15 @@ const initialState: TextDataMap = {
 
 // Reducer
 const TextReducer = (
-  state = initialState,
-  action: { type: string; payload?: any }
+  state = textPredictInitialState,
+  action: { type: string; payload?: any },
 ) => {
   switch (action.type) {
     case ADD_TEXT:
-      console.log(action.payload);
       return action.payload;
 
     case REMOVE_TEXT:
-      return initialState;
+      return textPredictInitialState;
 
     default:
       return state;

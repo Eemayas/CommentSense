@@ -23,11 +23,10 @@ const initialStates = {
       "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus,consequatur ",
   },
 };
-// const initialStates = false;
 
 const ModalReducer = (
   state = initialStates,
-  action: { type: any; payload: any }
+  action: { type: any; payload: any },
 ) => {
   switch (action.type) {
     case IS_SHOW_SPINNER:

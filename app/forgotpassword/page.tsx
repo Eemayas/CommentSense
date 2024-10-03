@@ -2,14 +2,12 @@
 import { useState } from "react";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { EmailField } from "@/components/TextField";
 import { IS_SHOW_ERROR_MODAL } from "@/lib/store/Reducer/constant";
 import AuthFormWrapper from "@/components/AuthFormBox";
 
 export default function ForgotPassword() {
-  const router = useRouter();
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
 

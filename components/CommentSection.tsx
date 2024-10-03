@@ -117,7 +117,7 @@ const CommentAnalysisSection = () => {
                     await getCommentsAnalysisPagination({
                       baseUrl: baseUrl,
                       params: {
-                        pageNumber: e.toString(),
+                        page_number: e.toString(),
                       },
                     });
                   await dispatch({

@@ -8,8 +8,6 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import AuthProvider from "../lib/context/AuthProvider";
 import ReduxProvider from "@/lib/context/ReduxProvider";
 import { Toaster } from "react-hot-toast";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
 import {
   BaseUrlEntryModal,
   CustomSpinner,

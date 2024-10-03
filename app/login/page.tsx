@@ -1,18 +1,18 @@
 /** @format */
 
 "use client";
-import { useState, MouseEvent } from "react";
+import { useState } from "react";
 import { Button, useDisclosure } from "@nextui-org/react";
 import { GithubIcon, GoogleIcon } from "@/components/Icons";
 import Link from "next/link";
 import {
   handleGithubSignIn,
   handleGoogleSignIn,
-} from "../../lib/action/LoginFunctionalities";
+} from "@/lib/action/LoginFunctionalities";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { EmailField, PasswordField } from "@/components/TextField";
 import {
   IS_SHOW_ERROR_MODAL,

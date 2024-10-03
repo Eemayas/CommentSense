@@ -4,13 +4,12 @@ const initialStates = {
   youtubeLink: "",
   model: "LSTM",
   comment: 100,
-  pageNumber: "1",
+  page_number: "1",
 };
-// const initialStates = false;
 
 const SearchPromptReducer = (
   state = initialStates,
-  action: { type: any; payload: any }
+  action: { type: any; payload: any },
 ) => {
   switch (action.type) {
     case SEARCH_PROMPT_EDIT:

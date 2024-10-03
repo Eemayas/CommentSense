@@ -68,15 +68,15 @@ def comment_scrape_endpoint_main():
 def get_comments_Analysis():
     # Fetch parameters from request args
     global_variables.global_selected_model = request.args.get("model")
-    pageNumber = request.args.get("pageNumber")
+    page_number = request.args.get("page_number")
     youtube_link = request.args.get("youtubeLink")
     comment = request.args.get("comment")
 
     # Check for missing or empty parameters
     if not global_variables.global_selected_model:
         return jsonify({"error": "Model parameter is required"}), 400
-    if not pageNumber:
-        return jsonify({"error": "PageNumber parameter is required"}), 400
+    if not page_number:
+        return jsonify({"error": "page_number parameter is required"}), 400
     if not youtube_link:
         return jsonify({"error": "YouTube link is required"}), 400
     match = re.search(r"\d+", comment)

@@ -1,8 +1,16 @@
 import { signIn } from "next-auth/react";
 
 export const handleGoogleSignIn = () => {
-  signIn("google", { callbackUrl: "http://localhost:3000" });
+  const callbackUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://comment-sense.vercel.app/";
+  signIn("google", { callbackUrl: callbackUrl });
 };
 export const handleGithubSignIn = () => {
-  signIn("github", { callbackUrl: "http://localhost:3000" });
+  const callbackUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://comment-sense.vercel.app/";
+  signIn("github", { callbackUrl: callbackUrl });
 };

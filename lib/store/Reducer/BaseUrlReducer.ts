@@ -18,7 +18,7 @@ export const resetBaseUrl = () => ({
 // Reducer Function
 const BaseUrlReducer = (
   state: string = initialState,
-  action: { type: string; payload?: string }
+  action: { type: string; payload?: string },
 ): string => {
   switch (action.type) {
     case SET_BASE_URL:
