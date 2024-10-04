@@ -21,6 +21,7 @@ import AnalysisTabularView, {
   ColumnHeaderType,
   YouTubeAnalysisResult,
 } from "@/app/(home)/components/YouTubeCommentAnalysisTablarView";
+import ExportCSVButton from "@/app/(home)/components/ExportCSVButton";
 
 const pageSize = 12; // Number of comments to display per page
 
@@ -87,15 +88,15 @@ const CommentAnalysisSection = () => {
 
   return (
     <>
-      <motion.section
+      <section
         id="CommentSection"
         ref={sectionRef}
-        whileInView={"show"}
-        variants={staggerContainer()}
-        viewport={{ once: true, amount: 0.1 }}
         className={`items-center px-6 py-5 md:px-20`}
       >
-        <h1 className="head-text">Comments Analysis</h1>
+        <div className="flex flex-row items-center justify-between">
+          <h1 className="head-text">Comments Analysis</h1>
+          <ExportCSVButton />
+        </div>
 
         <AnalysisTabularView
           columnsHeader={columns}
@@ -150,7 +151,7 @@ const CommentAnalysisSection = () => {
             }}
           />
         </div>
-      </motion.section>{" "}
+      </section>{" "}
     </>
   );
 };

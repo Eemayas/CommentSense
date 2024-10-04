@@ -188,7 +188,7 @@ export default function ResultsTablarView() {
   return (
     <>
       <Divider className="my-4" />
-      <Table isHeaderSticky>
+      <Table isHeaderSticky className={`items-center px-6 py-5 md:px-20`}>
         <TableHeader columns={columns}>
           {(column) => (
             <TableColumn key={column.uid} align="center">

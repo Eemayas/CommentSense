@@ -16,12 +16,14 @@ const Navbar = () => {
       <nav className="nav">
         <Link href={"/"} className="flex items-center gap-1">
           <Image
-            src={"/assets/icons/logo.svg"}
+            src={"/assets/images/CommentSense.png"}
             alt="logo"
-            width={27}
-            height={27}
-          ></Image>
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
           <p className="nav-logo">
+            {" "}
             Comment<span className="text-primary">Sense</span>
           </p>
         </Link>

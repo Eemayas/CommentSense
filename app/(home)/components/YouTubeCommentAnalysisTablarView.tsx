@@ -129,10 +129,12 @@ const AnalysisTabularView: React.FC<AnalysisTabularViewProps> = ({
         isStriped
         isHeaderSticky
         aria-label="Table for Showing Analysis result"
-        classNames={{
-          base: "max-h-[520px] overflow-scroll  ",
-          table: "min-h-[420px] ",
-        }}
+        classNames={
+          {
+            // base: "max-h-[520px] overflow-scroll  ",
+            // table: "min-h-[420px] ",
+          }
+        }
       >
         <TableHeader columns={columnsHeader}>
           {(column) => (

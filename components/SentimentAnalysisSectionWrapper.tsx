@@ -9,19 +9,20 @@ const SentimentAnalysisSectionWrapper: React.FC<
   SentimentAnalysisSectionWrapperProps
 > = ({ children, isYoutubeAnalysis }) => {
   return (
-    <section className="flex flex-col items-center justify-center px-6 py-14 sm:py-32 md:px-20">
-      <p className="small-text">Smart Sentiment Analysis Start Here &rarr;</p>
+    <section className="flex flex-grow flex-col items-center justify-center px-6 md:px-20">
+      <p className="small-text">Discover Smart Sentiment Analysis &rarr;</p>
       <h1 className="head-text text-center">
-        Unleash the Power of
+        Supercharge Your Insights with
         <span className="text-primary"> CommentSense</span>
       </h1>
-      <p className="mt-6">
-        Powerful, self-serve product and growth analytics to help you convert,
-        engage, and retain more.
+      <p className="mt-6 text-center">
+        Unlock insights with CommentSense, the ultimate tool for powerful,
+        intuitive sentiment analysis. Drive engagement, improve retention, and
+        accelerate growth with advanced, self-serve analytics.
       </p>
       {isYoutubeAnalysis ? (
         <p>
-          Try it out with
+          Get Started with a
           <Link
             className="font-bold text-blue-500 underline"
             href={"https://www.youtube.com/"}
@@ -30,13 +31,14 @@ const SentimentAnalysisSectionWrapper: React.FC<
             {" "}
             Youtube{" "}
           </Link>
-          Link or instead try for{" "}
+          Link or Try{" "}
           <Link
             className="font-bold text-blue-500 underline"
             href={"./predict"}
           >
             Single Text{" "}
           </Link>
+          Input!
         </p>
       ) : (
         <p>
