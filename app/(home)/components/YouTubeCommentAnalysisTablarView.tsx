@@ -13,13 +13,6 @@ import {
   Divider,
 } from "@nextui-org/react";
 
-import { getKeyValue, Spinner, Button } from "@nextui-org/react";
-import { useAsyncList } from "@react-stately/data";
-import { CommentData, TextDataMap } from "@/types";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store/Reducer/store";
-import { textPredictInitialState } from "@/lib/store/Reducer/textReducer";
-
 export type ColumnHeaderType = {
   name: string;
   uid: string;

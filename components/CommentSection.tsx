@@ -4,9 +4,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Pagination, Divider } from "@nextui-org/react";
 import { CommentData, CommentDataPaginationState, SearchPrompt } from "@/types";
-import CommentCards from "./CommentsCards";
-import { motion } from "framer-motion";
-import { staggerContainer } from "@/lib/utils/motion";
 import { scrollToSection } from "@/lib/action/ScrollFunctionalities";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,7 +11,6 @@ import {
   ADD_COMMENT_DATA_SUCCESS,
   IS_SHOW_SPINNER,
 } from "@/lib/store/Reducer/constant";
-import { AxiosResponse } from "axios";
 import { getCommentsAnalysisPagination } from "@/app/constants/apiEndpints";
 import { RootState } from "@/lib/store/Reducer/store";
 import AnalysisTabularView, {
