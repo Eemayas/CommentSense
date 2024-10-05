@@ -4,12 +4,12 @@ import React from "react";
 import { Divider } from "@nextui-org/react";
 
 import Navbar from "@/components/Navbar";
-import Searchbar from "@/components/Searchbar";
-import CommentAnalysisSection from "@/components/CommentSection";
-import ModelDetailSection from "@/components/ModelDetailSection";
-import YoutubeVideoSection from "@/components/YoutubeVideoSection";
+import Searchbar from "@/app/(home)/components/Searchbar";
+import CommentAnalysisSection from "@/app/(home)/components/CommentSection";
+import YoutubeVideoSection from "@/app/(home)/components/YoutubeVideoSection";
 import EndpointSetup from "@/components/EndpointSetup";
 import SentimentAnalysisSectionWrapper from "@/components/SentimentAnalysisSectionWrapper";
+import ModelDetailCarousel from "./(home)/components/ModelDetailCarousel";
 
 export default async function Home() {
   return (
@@ -19,7 +19,7 @@ export default async function Home() {
         <Searchbar />
         <EndpointSetup />
         <Divider className="my-1 mt-6" />
-        <ModelDetailSection />
+        <ModelDetailCarousel />
       </SentimentAnalysisSectionWrapper>
 
       <YoutubeVideoSection />

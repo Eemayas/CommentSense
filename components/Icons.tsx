@@ -18,6 +18,7 @@ export const MailIcon = (
     />
   </svg>
 );
+
 export const GithubIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
 ) => (
@@ -28,6 +29,7 @@ export const GithubIcon = (
     ></path>
   </svg>
 );
+
 export const GoogleIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
 ) => (
@@ -50,6 +52,7 @@ export const GoogleIcon = (
     />
   </svg>
 );
+
 export const PasswordIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
 ) => (
@@ -94,6 +97,7 @@ export const PasswordIcon = (
     />
   </svg>
 );
+
 export const TickIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
 ) => (
@@ -112,6 +116,7 @@ export const TickIcon = (
     ></path>
   </svg>
 );
+
 export const ErrorIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
 ) => (
@@ -131,6 +136,7 @@ export const ErrorIcon = (
     />
   </svg>
 );
+
 export const EditIcon = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
 ) => (

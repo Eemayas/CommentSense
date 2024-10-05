@@ -2,7 +2,6 @@
 
 "use client";
 
-import { scrollToSection } from "@/lib/action/ScrollFunctionalities";
 import React, { FormEvent, useState } from "react";
 import { DropDownButton } from "./DropDown";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +15,7 @@ import {
   SEARCH_PROMPT_EDIT,
   YOUTUBE_LINK,
 } from "@/lib/store/Reducer/constant";
+import { scrollToSection } from "@/lib/action/ScrollFunctionalities";
 import { getCommentsAnalysis } from "@/app/constants/apiEndpints";
 import { RootState } from "@/lib/store/Reducer/store";
 

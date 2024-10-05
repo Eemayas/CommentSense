@@ -59,9 +59,6 @@ const CommentAnalysisSection = () => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     if (commentDataPagination[currentPage] != undefined) {
-      // const commentsToDisplay: CommentData[] =
-      //   commentDataPagination[currentPage];
-
       setDisplayedComments(commentDataPagination[currentPage]);
     }
 
