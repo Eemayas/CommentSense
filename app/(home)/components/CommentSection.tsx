@@ -71,8 +71,8 @@ const CommentAnalysisSection = () => {
         comments: commentAnalysis.comment,
         result: commentAnalysis.type,
         pos_accuracy: commentAnalysis.positive_score,
-        neu_accuracy: commentAnalysis.negative_score,
-        neg_accuracy: commentAnalysis.positive_score,
+        neu_accuracy: commentAnalysis.neutral_score,
+        neg_accuracy: commentAnalysis.negative_score,
       };
     },
   );
