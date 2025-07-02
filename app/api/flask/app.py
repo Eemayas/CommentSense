@@ -163,6 +163,7 @@ if __name__ == "__main__":
     nltk.download("punkt")
     nltk.download("punkt")
     nltk.download("wordnet")
+    nltk.download("stopwords")
 
     download_model_tokenizer(file_ids)
 
